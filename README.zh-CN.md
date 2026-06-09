@@ -2,6 +2,8 @@
 
 [English](README.md) | 简体中文
 
+![演示总览图](assets/hero-contact-sheet.jpg)
+
 把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套完整的“图片式 PPT 汇报”工作流：
 
 - 有来源依据的逐页大纲
@@ -60,6 +62,17 @@ outputs/<topic-slug>-images/
 
 实际文件名可以根据你的主题和语言调整。
 
+## 脱敏 Demo
+
+仓库里已经放了一个完全脱敏的合成示例，主题是实验室安全检查工作流，不包含私人课程资料、学生姓名或未公开文件：
+
+- [输入资料示例](examples/lab-safety-check/input-notes.md)
+- [image2 逐页大纲示例](examples/lab-safety-check/image2-outline.md)
+- [生成图片总览](examples/lab-safety-check/contact-sheet-demo.jpg)
+- [最终讲稿示例](examples/lab-safety-check/10-minute-script.md)
+
+![演示 GIF](assets/demo.gif)
+
 ## 安装方式
 
 ### Codex Desktop / Codex CLI
@@ -79,6 +92,10 @@ git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/p
 ```
 
 然后重启 Codex，让它重新加载 skill 元数据。
+
+### Release 下载
+
+也可以从 [GitHub Releases](https://github.com/uuoov/ppt-image-share-builder/releases) 下载最新 ZIP，解压后放入 Codex skills 目录。
 
 ## 快速开始
 
@@ -108,6 +125,27 @@ Use $ppt-image-share-builder to turn my course topic, source files, and referenc
 5. 确认后继续生成剩余页面；
 6. 做一张总览图检查；
 7. 最后写一份 10 分钟汇报稿。
+```
+
+## 辅助脚本
+
+从已生成的页面图片自动制作 contact sheet：
+
+```bash
+python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
+```
+
+重新生成脱敏 demo 图片、总览图、README 顶部效果图和 GIF：
+
+```bash
+python scripts/create_demo_assets.py
+```
+
+把生成好的页面图片自动插入 PPTX：
+
+```bash
+python -m pip install python-pptx
+python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
 ```
 
 ## 工作流说明
@@ -190,12 +228,27 @@ Use $ppt-image-share-builder to turn my course topic, source files, and referenc
 ```text
 ppt-image-share-builder/
   SKILL.md
+  README.md
+  README.zh-CN.md
   agents/
     openai.yaml
+  assets/
+    hero-contact-sheet.jpg
+    demo.gif
+  examples/
+    lab-safety-check/
+      input-notes.md
+      image2-outline.md
+      contact-sheet-demo.jpg
+      10-minute-script.md
   references/
     workflow-checklist.md
     prompt-patterns.md
     qa-checklist.md
+  scripts/
+    create_demo_assets.py
+    make_contact_sheet.py
+    images_to_pptx.py
 ```
 
 ## 设计原则
@@ -215,17 +268,14 @@ ppt-image-share-builder/
 | 工程类 agent skill | 有命令、脚本、质量门禁 | 更偏资料整理、图片生成、讲稿生成 |
 | PPT 生成 skill | 可能直接生成 `.pptx` | 更强调参考风格、image2 提示词、总览 QA 和汇报稿 |
 
-## 后续路线
+## 已补充能力
 
-值得继续增强的方向：
-
-- 增加一个脱敏 demo，展示输入资料、生成图片总览和最终讲稿。
-- 增加自动生成 contact sheet 的脚本。
-- 增加把图片自动插入 PPTX 的脚本。
-- 发布 release zip，方便用户下载。
-- 增加 README 顶部效果图。
-- 增加演示视频或 GIF。
-- 投稿到相关 awesome skill 列表。
+- 完整脱敏 demo：输入资料、逐页大纲、生成图片总览、最终讲稿。
+- 自动生成 contact sheet 的脚本。
+- 自动把页面图片插入 PPTX 的脚本。
+- README 顶部效果图和演示 GIF。
+- 方便手动下载的 release ZIP。
+- 面向 awesome skill 列表的投稿准备。
 
 ## 如何获得更多 Star
 

@@ -2,6 +2,8 @@
 
 English | [简体中文](README.zh-CN.md)
 
+![Demo contact sheet](assets/hero-contact-sheet.jpg)
+
 Turn a course topic, source files, and a reference PPT style into a complete image-based classroom presentation workflow:
 
 - sourced slide outline
@@ -61,6 +63,17 @@ outputs/<topic-slug>-images/
 
 The exact filenames can be adapted to the project language and topic.
 
+## Demo
+
+The repository includes a privacy-safe synthetic demo:
+
+- [input notes](examples/lab-safety-check/input-notes.md)
+- [image2 outline](examples/lab-safety-check/image2-outline.md)
+- [generated image overview](examples/lab-safety-check/contact-sheet-demo.jpg)
+- [sample talk script](examples/lab-safety-check/10-minute-script.md)
+
+![Demo animation](assets/demo.gif)
+
 ## Install
 
 ### Codex Desktop / Codex CLI
@@ -80,6 +93,10 @@ git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/p
 ```
 
 Restart Codex so it loads the new skill metadata.
+
+### Release Download
+
+You can also download the latest release ZIP from [GitHub Releases](https://github.com/uuoov/ppt-image-share-builder/releases).
 
 ### Development Install
 
@@ -122,6 +139,27 @@ Please:
 7. write the final talk script.
 ```
 
+## Helper Scripts
+
+Create a contact sheet from numbered slide images:
+
+```bash
+python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
+```
+
+Generate the privacy-safe demo images, contact sheet, README preview image, and GIF:
+
+```bash
+python scripts/create_demo_assets.py
+```
+
+Insert generated slide images into a full-bleed PPTX:
+
+```bash
+python -m pip install python-pptx
+python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
+```
+
 ## Workflow Details
 
 The skill follows these stages:
@@ -155,12 +193,27 @@ The skill follows these stages:
 ```text
 ppt-image-share-builder/
   SKILL.md
+  README.md
+  README.zh-CN.md
   agents/
     openai.yaml
+  assets/
+    hero-contact-sheet.jpg
+    demo.gif
+  examples/
+    lab-safety-check/
+      input-notes.md
+      image2-outline.md
+      contact-sheet-demo.jpg
+      10-minute-script.md
   references/
     workflow-checklist.md
     prompt-patterns.md
     qa-checklist.md
+  scripts/
+    create_demo_assets.py
+    make_contact_sheet.py
+    images_to_pptx.py
 ```
 
 ## Design Principles
@@ -182,17 +235,14 @@ This repository is a focused, single-purpose skill. High-star skill repositories
 | Production agent-skill suites | Commands, quality gates, multi-agent workflows, docs, releases | This repo is narrower and tuned for presentation-image workflows |
 | PPT-generation skills | Often assemble `.pptx` automatically and include runtime scripts | This repo emphasizes source extraction, style audit, image prompts, contact-sheet QA, and talk scripts |
 
-## Roadmap
+## Included Improvements
 
-Useful next steps:
-
-- Add a sanitized demo project with source notes, prompts, images, contact sheet, and script.
-- Add helper scripts for contact-sheet generation and final-folder cleanup.
-- Add an optional PPTX assembly helper that places generated images into slides.
-- Add a release `.zip` for one-click manual installation.
-- Add screenshots or an Open Graph cover image.
-- Add a short demo video or animated GIF.
-- Submit the skill to public skill directories or awesome lists after adding a demo.
+- Privacy-safe demo project with input notes, prompts, generated slide images, contact sheet, and talk script.
+- Contact sheet generator for quick deck-level QA.
+- PPTX assembly helper that inserts generated images into full-bleed slides.
+- README preview image and animated GIF.
+- Release ZIP for manual download.
+- Public submission target for awesome skill lists.
 
 ## Tips For Getting More Stars
 

@@ -77,6 +77,12 @@ Keep the workflow source-backed and style-aware. Do not treat it as a generic im
 
 7. **QA And Iterate**
    - Make a contact sheet after each major batch.
+   - When the repository helper is available, create it with:
+
+     ```powershell
+     python scripts\make_contact_sheet.py --input-dir outputs\<topic-slug>-images -o outputs\<topic-slug>-images\contact-sheet.jpg
+     ```
+
    - Inspect every full-size slide for:
      - wrong Chinese characters
      - missing or incorrect page numbers
@@ -106,6 +112,11 @@ Produce the following when requested:
 - `outputs/<topic-slug>-images/slide-XX-*.png`
 - `outputs/<topic-slug>-images/contact-sheet-<n>-slides.jpg`
 - `<topic>_10分钟汇报稿.md` or another duration-specific script
+- Optional `.pptx` assembled from generated images by running:
+
+  ```powershell
+  python scripts\images_to_pptx.py --input-dir outputs\<topic-slug>-images -o <topic>.pptx
+  ```
 
 ## Quality Bar
 
