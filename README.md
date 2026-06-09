@@ -1,5 +1,7 @@
 # PPT Image Share Builder
 
+English | [简体中文](README.zh-CN.md)
+
 Turn a course topic, source files, and a reference PPT style into a complete image-based classroom presentation workflow:
 
 - sourced slide outline
