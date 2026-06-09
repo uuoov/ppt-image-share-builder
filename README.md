@@ -244,47 +244,25 @@ ppt-image-share-builder/
 - **Chinese text aware**: keep generated Chinese text short enough to inspect and fix.
 - **Private by default**: do not publish user textbooks, generated course files, personal names, or classroom materials unless the user explicitly asks.
 
-## How It Compares
+## Positioning
 
-This repository is a focused, single-purpose skill. High-star skill repositories tend to have broader distribution or stronger demo surfaces:
+This repository is a focused, single-purpose skill. It is designed for image2-first classroom and report-style presentation workflows:
 
-| Repository type | What they do well | Difference from this skill |
+| Repository type | Common focus | Difference from this skill |
 | --- | --- | --- |
 | Curated skill lists | Many skills, easy discovery, install snippets | This repo is one focused workflow, not a collection |
 | Official/example skill repos | Templates, specs, marketplace-style installation | This repo is practical and Codex-oriented, but not yet a marketplace package |
 | Production agent-skill suites | Commands, quality gates, multi-agent workflows, docs, releases | This repo is narrower and tuned for presentation-image workflows |
 | PPT-generation skills | Often assemble `.pptx` automatically and include runtime scripts | This repo is image2-first: generate polished slide images first, then assemble them into PPTX |
 
-## Included Improvements
+## Current Features
 
 - Privacy-safe demo project with input notes, image2-style prompts, placeholder slide images, contact sheet, and talk script.
 - Contact sheet generator for quick QA after image2 generation.
 - PPTX assembly helper that inserts image2-generated slides into full-bleed PPT pages.
 - README preview image and animated GIF.
 - Release ZIP for manual download.
-- Public submission target for awesome skill lists.
-
-## Tips For Getting More Stars
-
-Stars usually come from clarity, usefulness, and proof. For this project, the highest-leverage steps are:
-
-1. **Show a real sanitized example**  
-   Add before/after materials, a contact sheet, and the final script.
-
-2. **Make installation effortless**  
-   Keep the clone command visible near the top. Add release downloads later.
-
-3. **Make the outcome obvious in 10 seconds**  
-   Put one screenshot/contact sheet near the top of the README.
-
-4. **Target a clear niche**  
-   "Turn course materials into sourced image-based PPT reports" is more memorable than "make PPTs."
-
-5. **Publish where skill users look**  
-   Share it with Codex/agent-skill communities and submit it to relevant awesome lists.
-
-6. **Keep examples privacy-safe**  
-   Do not use real student names, private course files, or unreleased classroom materials.
+- PowerShell-safe command examples for Windows users.
 
 ## License
 
