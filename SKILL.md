@@ -1,6 +1,6 @@
 ---
 name: ppt-image-share-builder
-description: Build classroom sharing decks from a topic, source files, reference PPT style, and iterative user feedback. Use when Codex needs to create image-generation prompts, generate slide images, QA a contact sheet, and write a timed presentation script for a course report or lecture-style PPT.
+description: Build image2-first classroom sharing decks from a topic, source files, reference PPT style, and iterative user feedback. Use when Codex needs to create image2-ready per-slide prompts, generate polished PPT page images, QA a contact sheet, assemble those images into a PPTX, and write a timed presentation script for a course report or lecture-style PPT.
 ---
 
 # PPT Image Share Builder
@@ -8,13 +8,14 @@ description: Build classroom sharing decks from a topic, source files, reference
 Use this skill to reproduce the workflow of turning a course-sharing topic into:
 
 - a sourced slide outline
-- image-generation prompts for each PPT page
-- generated slide images saved in the workspace
+- image2-ready prompts for each PPT page
+- image2-generated slide images saved in the workspace
 - a contact sheet for QA
+- a PPTX assembled from the final slide images
 - a timed oral presentation script
 - iteration notes from user feedback
 
-Keep the workflow source-backed and style-aware. Do not treat it as a generic image batch job.
+Keep the workflow source-backed, style-aware, and image2-first. Do not treat it as a generic image batch job or a script-only PPT generator. Helper scripts only handle post-generation steps such as contact sheets and PPTX assembly.
 
 ## Workflow
 
@@ -47,7 +48,7 @@ Keep the workflow source-backed and style-aware. Do not treat it as a generic im
    - Include a closing page if the user expects a formal report deck.
    - Add case examples that are not already visible on the slides when they make the talk more credible.
 
-5. **Create Image Prompts**
+5. **Create Image2 Prompts**
    - Write a single unified visual prompt first, then per-slide prompts.
    - Each slide prompt should include:
      - `页面标题`
@@ -57,8 +58,8 @@ Keep the workflow source-backed and style-aware. Do not treat it as a generic im
    - Keep dense Chinese text short. For text-heavy slides, recommend using generated images as backgrounds and adding final text manually in PPT.
    - Never ask image generation to create official government logos, company logos, seals, QR codes, or watermarks unless the user provided verified assets and explicitly wants them.
 
-6. **Generate Slide Images**
-   - Use the built-in image generation tool by default for raster slide images.
+6. **Generate Slide Images With Image2**
+   - Use image2 or the built-in image generation tool by default for raster slide images.
    - Generate one slide at a time or in small batches, especially when Chinese text must be accurate.
    - Save project-bound images under a workspace folder such as:
 
@@ -94,7 +95,17 @@ Keep the workflow source-backed and style-aware. Do not treat it as a generic im
    - When user feedback changes content, update the outline and prompt file first, then regenerate only affected slides.
    - Remove duplicate generated variants from the final output folder, unless the user asks to keep alternatives.
 
-8. **Write The Presentation Script**
+8. **Assemble The PPTX**
+   - After the final images are approved, insert them as full-bleed slides in a `.pptx`.
+   - Use the helper when available:
+
+     ```powershell
+     python scripts\images_to_pptx.py --input-dir outputs\<topic-slug>-images -o <topic>.pptx
+     ```
+
+   - Do not rebuild the visual design in PowerPoint unless the user asks for editable native PPT shapes.
+
+9. **Write The Presentation Script**
    - Write a timed script after the slide content stabilizes.
    - Match the target duration. For a 10-minute report, use roughly:
      - cover and agenda: 40-60 seconds total
@@ -111,12 +122,8 @@ Produce the following when requested:
 - `<topic>_image2逐页大纲.md`
 - `outputs/<topic-slug>-images/slide-XX-*.png`
 - `outputs/<topic-slug>-images/contact-sheet-<n>-slides.jpg`
+- `<topic>.pptx` assembled from the final slide images
 - `<topic>_10分钟汇报稿.md` or another duration-specific script
-- Optional `.pptx` assembled from generated images by running:
-
-  ```powershell
-  python scripts\images_to_pptx.py --input-dir outputs\<topic-slug>-images -o <topic>.pptx
-  ```
 
 ## Quality Bar
 
@@ -124,6 +131,7 @@ Produce the following when requested:
 - The generated images should visually match the user’s reference PPT.
 - Official claims, dates, statistics, and cases must be source-backed.
 - The final folder should contain only the formal slide images and useful contact sheet, not duplicate variants.
+- The PPTX should preserve the image2 design by using the final images as full-bleed slides.
 - The script should sound like a classroom report, not a legal memo or copied textbook.
 
 ## References

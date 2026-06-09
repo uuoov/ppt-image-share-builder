@@ -4,16 +4,30 @@
 
 ![演示总览图](assets/hero-contact-sheet.jpg)
 
-把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套完整的“图片式 PPT 汇报”工作流：
+把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套以 image2 生成为核心的“图片式 PPT 汇报”工作流：
 
 - 有来源依据的逐页大纲
 - 每一页的 image2 / 图片生成提示词
-- 生成好的 PPT 页面图片
+- 由 image2 或同类图片模型生成的高质量 PPT 页面图片
 - 用于检查整体风格的缩略图总览
+- 由页面图片自动装配出来的 PPTX
 - 可直接练习的限时汇报稿
 - 根据用户反馈进行局部重生成和修改
 
 这是一个 Codex skill，适合学生、教师、研究者，以及任何需要从零散材料中做出课堂汇报、课程展示、讲座型 PPT 或报告型 PPT 的人。
+
+核心链路是：
+
+```text
+资料文件 + 参考 PPT 风格
+  -> image2 可直接使用的逐页提示词
+  -> 生成 16:9 PPT 页面图片
+  -> 制作 contact sheet 总览检查
+  -> 把最终图片全屏插入 PPTX
+  -> 生成限时汇报稿
+```
+
+辅助脚本不替代 image2。它们只负责图片生成之后的事情：做图片总览、检查整套页面、把最终 PNG/JPG 页面插入 `.pptx`。
 
 ## 为什么需要这个 Skill
 
@@ -33,8 +47,9 @@ flowchart LR
   D --> E["写逐页图片提示词"]
   E --> F["生成页面图片"]
   F --> G["制作缩略图总览"]
-  G --> H["按反馈重生成部分页面"]
-  H --> I["写限时汇报稿"]
+  G --> H["装配图片版 PPTX"]
+  H --> I["按反馈重生成部分页面"]
+  I --> J["写限时汇报稿"]
 ```
 
 它特别适合这些场景：
@@ -64,7 +79,7 @@ outputs/<topic-slug>-images/
 
 ## 脱敏 Demo
 
-仓库里已经放了一个完全脱敏的合成示例，主题是实验室安全检查工作流，不包含私人课程资料、学生姓名或未公开文件：
+仓库里已经放了一个完全脱敏的合成示例，主题是实验室安全检查工作流，不包含私人课程资料、学生姓名或未公开文件。其中 `images/` 是用于公开展示交付链路的占位页面图，真实项目里这一层应由 image2 生成。
 
 - [输入资料示例](examples/lab-safety-check/input-notes.md)
 - [image2 逐页大纲示例](examples/lab-safety-check/image2-outline.md)
@@ -129,19 +144,19 @@ Use $ppt-image-share-builder to turn my course topic, source files, and referenc
 
 ## 辅助脚本
 
-从已生成的页面图片自动制作 contact sheet：
+image2 生成好编号页面图片之后，自动制作 contact sheet：
 
 ```bash
 python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
 ```
 
-重新生成脱敏 demo 图片、总览图、README 顶部效果图和 GIF：
+重新生成脱敏 demo 占位图片、总览图、README 顶部效果图和 GIF：
 
 ```bash
 python scripts/create_demo_assets.py
 ```
 
-把生成好的页面图片自动插入 PPTX：
+把 image2 生成好的最终页面图片自动插入 PPTX：
 
 ```bash
 python -m pip install python-pptx
@@ -199,9 +214,9 @@ python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o
 
 对于中文较多的页面，skill 会倾向于减少小字，优先保证标题、关键词和图表结构清楚。
 
-### 6. 生成图片并保存
+### 6. 用 image2 生成图片并保存
 
-一般先生成前 3 页确认风格，再继续生成后续页面。图片会按页码保存，便于插入 PPT。
+一般先生成前 3 页确认风格，再继续生成后续页面。图片会按页码保存，作为最后 PPTX 的视觉源文件。
 
 ### 7. 做总览图并检查
 
@@ -214,7 +229,11 @@ python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o
 - 是否有重复文件
 - 是否出现用户要求删除的内容，例如不该出现的 `Q&A`
 
-### 8. 写限时汇报稿
+### 8. 装配 PPTX
+
+把最终确认的页面图片全屏插入 PPTX。这样 PPTX 保留 image2 的整体视觉效果，也方便课堂汇报、投屏和后续手动微调。
+
+### 9. 写限时汇报稿
 
 汇报稿不是简单念 PPT，而是补充：
 
@@ -266,13 +285,13 @@ ppt-image-share-builder/
 | Skill 合集 | 数量多，容易被搜索和安装 | 单一工作流，聚焦课程汇报 PPT |
 | 官方示例库 | 标准清楚，有官方背书 | 更偏实际课堂任务和 Codex 桌面端工作流 |
 | 工程类 agent skill | 有命令、脚本、质量门禁 | 更偏资料整理、图片生成、讲稿生成 |
-| PPT 生成 skill | 可能直接生成 `.pptx` | 更强调参考风格、image2 提示词、总览 QA 和汇报稿 |
+| PPT 生成 skill | 可能直接生成 `.pptx` | 本 Skill 是 image2-first：先生成好看的页面图片，再装配为 PPTX |
 
 ## 已补充能力
 
-- 完整脱敏 demo：输入资料、逐页大纲、生成图片总览、最终讲稿。
-- 自动生成 contact sheet 的脚本。
-- 自动把页面图片插入 PPTX 的脚本。
+- 完整脱敏 demo：输入资料、image2 风格逐页大纲、占位页面图片总览、最终讲稿。
+- image2 生成图片之后自动生成 contact sheet 的脚本。
+- 自动把 image2 页面图片插入 PPTX 的脚本。
 - README 顶部效果图和演示 GIF。
 - 方便手动下载的 release ZIP。
 - 面向 awesome skill 列表的投稿准备。

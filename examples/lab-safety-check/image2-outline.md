@@ -13,4 +13,4 @@
 5. Contact Sheet QA: count, consistency, text
 6. Final Package: slides, script, handoff
 
-Each slide image in `images/` is a synthetic illustration of the workflow, not a real generated course deck.
+In a real run, send these prompts to image2, save the resulting 16:9 slide images in `images/`, review them as a contact sheet, then assemble the final images into PPTX. The files currently in `images/` are synthetic placeholders, not a real generated course deck.

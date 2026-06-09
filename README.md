@@ -4,16 +4,30 @@ English | [简体中文](README.zh-CN.md)
 
 ![Demo contact sheet](assets/hero-contact-sheet.jpg)
 
-Turn a course topic, source files, and a reference PPT style into a complete image-based classroom presentation workflow:
+Turn a course topic, source files, and a reference PPT style into an image2-first classroom presentation workflow:
 
 - sourced slide outline
 - per-slide image prompts
-- generated slide images
+- high-quality slide images generated with image2 or another raster image model
 - contact-sheet QA
+- PPTX assembled from the generated images
 - timed presentation script
 - revision notes from user feedback
 
 This is a Codex skill for students, teachers, researchers, and anyone who needs to make a polished lecture-style or report-style PPT from messy materials.
+
+The core idea is simple:
+
+```text
+source files + reference PPT style
+  -> image2-ready per-slide prompts
+  -> generated 16:9 PPT page images
+  -> contact sheet QA
+  -> full-bleed PPTX assembled from those images
+  -> timed speaking script
+```
+
+The helper scripts do not replace image2. They help after image generation: checking the image set and inserting final PNG/JPG pages into a `.pptx` deck.
 
 ## Why This Skill Exists
 
@@ -33,8 +47,9 @@ flowchart LR
   D --> E["Write image2 prompts"]
   E --> F["Generate slide images"]
   F --> G["Create contact sheet"]
-  G --> H["Iterate selected slides"]
-  H --> I["Write timed talk script"]
+  G --> H["Assemble image PPTX"]
+  H --> I["Iterate selected slides"]
+  I --> J["Write timed talk script"]
 ```
 
 The skill is especially useful when the user has:
@@ -65,7 +80,7 @@ The exact filenames can be adapted to the project language and topic.
 
 ## Demo
 
-The repository includes a privacy-safe synthetic demo:
+The repository includes a privacy-safe synthetic demo. Its `images/` folder is a stand-in for real image2 outputs, so the repo can show the handoff without publishing private course material.
 
 - [input notes](examples/lab-safety-check/input-notes.md)
 - [image2 outline](examples/lab-safety-check/image2-outline.md)
@@ -141,19 +156,19 @@ Please:
 
 ## Helper Scripts
 
-Create a contact sheet from numbered slide images:
+After image2 has generated numbered slide images, create a contact sheet:
 
 ```bash
 python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
 ```
 
-Generate the privacy-safe demo images, contact sheet, README preview image, and GIF:
+Generate the privacy-safe demo placeholder images, contact sheet, README preview image, and GIF:
 
 ```bash
 python scripts/create_demo_assets.py
 ```
 
-Insert generated slide images into a full-bleed PPTX:
+Insert final image2-generated slide images into a full-bleed PPTX:
 
 ```bash
 python -m pip install python-pptx
@@ -179,13 +194,16 @@ The skill follows these stages:
 5. **Write image prompts**  
    It creates one unified visual prompt plus per-slide prompts with required text and composition.
 
-6. **Generate and save slide images**  
-   It generates one slide at a time or in small batches, then saves stable numbered files.
+6. **Generate and save slide images with image2**  
+   It generates one slide at a time or in small batches, then saves stable numbered files. Treat these images as the visual source of truth for the final PPTX.
 
 7. **QA with contact sheets**  
    It checks slide count, visible text, page numbers, duplicate variants, and style consistency.
 
-8. **Write the timed script**  
+8. **Assemble the PPTX**  
+   It inserts the final images as full-bleed slides, so the deck preserves the image2 visual design.
+
+9. **Write the timed script**  
    It writes a report script that adds spoken bridges and supporting cases instead of just reading the slides.
 
 ## Repository Layout
@@ -233,13 +251,13 @@ This repository is a focused, single-purpose skill. High-star skill repositories
 | Curated skill lists | Many skills, easy discovery, install snippets | This repo is one focused workflow, not a collection |
 | Official/example skill repos | Templates, specs, marketplace-style installation | This repo is practical and Codex-oriented, but not yet a marketplace package |
 | Production agent-skill suites | Commands, quality gates, multi-agent workflows, docs, releases | This repo is narrower and tuned for presentation-image workflows |
-| PPT-generation skills | Often assemble `.pptx` automatically and include runtime scripts | This repo emphasizes source extraction, style audit, image prompts, contact-sheet QA, and talk scripts |
+| PPT-generation skills | Often assemble `.pptx` automatically and include runtime scripts | This repo is image2-first: generate polished slide images first, then assemble them into PPTX |
 
 ## Included Improvements
 
-- Privacy-safe demo project with input notes, prompts, generated slide images, contact sheet, and talk script.
-- Contact sheet generator for quick deck-level QA.
-- PPTX assembly helper that inserts generated images into full-bleed slides.
+- Privacy-safe demo project with input notes, image2-style prompts, placeholder slide images, contact sheet, and talk script.
+- Contact sheet generator for quick QA after image2 generation.
+- PPTX assembly helper that inserts image2-generated slides into full-bleed PPT pages.
 - README preview image and animated GIF.
 - Release ZIP for manual download.
 - Public submission target for awesome skill lists.
