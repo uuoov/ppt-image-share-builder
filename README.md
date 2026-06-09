@@ -156,21 +156,23 @@ Please:
 
 ## Helper Scripts
 
+The commands below are PowerShell-safe. On Windows PowerShell 5.x, run multi-step commands on separate lines instead of joining them with `&&`.
+
 After image2 has generated numbered slide images, create a contact sheet:
 
-```bash
+```powershell
 python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
 ```
 
 Generate the privacy-safe demo placeholder images, contact sheet, README preview image, and GIF:
 
-```bash
+```powershell
 python scripts/create_demo_assets.py
 ```
 
 Insert final image2-generated slide images into a full-bleed PPTX:
 
-```bash
+```powershell
 python -m pip install python-pptx
 python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
 ```

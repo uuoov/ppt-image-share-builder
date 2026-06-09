@@ -32,6 +32,7 @@ Keep the workflow source-backed, style-aware, and image2-first. Do not treat it 
      ```
 
    - On Windows PowerShell, do not place Chinese paths inside here-strings piped to Python. Pass paths via `sys.argv` or environment variables.
+   - On Windows PowerShell 5.x, do not chain commands with `&&`. Run commands as separate tool calls or separate lines; use PowerShell-native flow only when needed.
    - Use official or primary sources for recent laws, rules, standards, regulator notices, data, and case details. Browse when the fact could have changed.
    - Separate verified source facts from explanatory interpretation.
 

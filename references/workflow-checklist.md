@@ -17,6 +17,7 @@ Use this checklist for a full course-sharing PPT image workflow.
 ## Source Handling
 
 - Extract `.docx`/`.txt`/`.csv`/`.md` content as UTF-8.
+- On Windows PowerShell 5.x, avoid Bash-style `&&`; run command steps separately.
 - Browse official/primary sources for unstable facts.
 - Keep source notes for:
   - laws and effective dates

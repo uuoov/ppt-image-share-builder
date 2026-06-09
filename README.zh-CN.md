@@ -144,21 +144,23 @@ Use $ppt-image-share-builder to turn my course topic, source files, and referenc
 
 ## 辅助脚本
 
+下面的命令都兼容 Windows PowerShell。PowerShell 5.x 不支持 `&&`，多步命令请分成多行或分开执行。
+
 image2 生成好编号页面图片之后，自动制作 contact sheet：
 
-```bash
+```powershell
 python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
 ```
 
 重新生成脱敏 demo 占位图片、总览图、README 顶部效果图和 GIF：
 
-```bash
+```powershell
 python scripts/create_demo_assets.py
 ```
 
 把 image2 生成好的最终页面图片自动插入 PPTX：
 
-```bash
+```powershell
 python -m pip install python-pptx
 python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
 ```
