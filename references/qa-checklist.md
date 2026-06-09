@@ -27,7 +27,7 @@ Run this before final delivery.
 ## Content Completeness
 
 - User-requested textbook points are included.
-- User-requested salary/career references are included when applicable.
+- User-requested audience-specific application points are included when applicable.
 - Required cases are included either on slides or in the talk script.
 - The script references any extra cases not visible on the slides.
 

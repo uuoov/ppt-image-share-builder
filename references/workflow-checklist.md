@@ -63,7 +63,7 @@ Use this checklist for a full course-sharing PPT image workflow.
 Track user changes such as:
 
 - add textbook points
-- add salary/job expectations
+- add audience-specific application points
 - change closing wording
 - remove Q&A
 - update cases

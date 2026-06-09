@@ -244,16 +244,15 @@ ppt-image-share-builder/
 - **Chinese text aware**: keep generated Chinese text short enough to inspect and fix.
 - **Private by default**: do not publish user textbooks, generated course files, personal names, or classroom materials unless the user explicitly asks.
 
-## Positioning
+## Scope
 
-This repository is a focused, single-purpose skill. It is designed for image2-first classroom and report-style presentation workflows:
+This is a focused skill for image2-first classroom and report-style presentation workflows. It is meant for:
 
-| Repository type | Common focus | Difference from this skill |
-| --- | --- | --- |
-| Curated skill lists | Many skills, easy discovery, install snippets | This repo is one focused workflow, not a collection |
-| Official/example skill repos | Templates, specs, marketplace-style installation | This repo is practical and Codex-oriented, but not yet a marketplace package |
-| Production agent-skill suites | Commands, quality gates, multi-agent workflows, docs, releases | This repo is narrower and tuned for presentation-image workflows |
-| PPT-generation skills | Often assemble `.pptx` automatically and include runtime scripts | This repo is image2-first: generate polished slide images first, then assemble them into PPTX |
+- turning source material into image2-ready slide prompts
+- generating polished 16:9 slide images
+- checking the whole image deck with a contact sheet
+- assembling the final images into a PPTX
+- writing a timed speaking script
 
 ## Current Features
 
