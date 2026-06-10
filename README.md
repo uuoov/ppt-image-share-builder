@@ -2,6 +2,11 @@
 
 English | [简体中文](README.zh-CN.md)
 
+[![Release](https://img.shields.io/github/v/release/uuoov/ppt-image-share-builder?style=flat-square)](https://github.com/uuoov/ppt-image-share-builder/releases)
+[![License](https://img.shields.io/github/license/uuoov/ppt-image-share-builder?style=flat-square)](LICENSE)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-2563eb?style=flat-square)](SKILL.md)
+[![PowerPoint](https://img.shields.io/badge/output-PPTX-b7472a?style=flat-square)](scripts/images_to_pptx.py)
+
 ![Demo contact sheet](assets/hero-contact-sheet.jpg)
 
 Turn a course topic, source files, and a reference PPT style into an image2-first classroom presentation workflow:
@@ -68,6 +73,7 @@ Typical output:
 ```text
 <topic>_image2逐页大纲.md
 <topic>_10分钟汇报稿.md
+<topic>.pptx
 outputs/<topic-slug>-images/
   slide-01-cover.png
   slide-02-contents.png
@@ -91,7 +97,25 @@ The repository includes a privacy-safe synthetic demo. Its `images/` folder is a
 
 ## Install
 
-### Codex Desktop / Codex CLI
+### Skill Installer
+
+If your Codex environment includes the built-in skill installer, use:
+
+Windows PowerShell:
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo uuoov/ppt-image-share-builder --path . --name ppt-image-share-builder
+```
+
+macOS / Linux:
+
+```bash
+python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo uuoov/ppt-image-share-builder --path . --name ppt-image-share-builder
+```
+
+Restart Codex so it loads the new skill metadata.
+
+### Manual Clone
 
 Clone this repository directly into your Codex skills directory.
 
@@ -106,8 +130,6 @@ macOS / Linux:
 ```bash
 git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/ppt-image-share-builder
 ```
-
-Restart Codex so it loads the new skill metadata.
 
 ### Release Download
 
@@ -134,7 +156,7 @@ Duration: <8-10 minutes>
 Reference PPT: <path to sample deck>
 Sources: <docx/pdf/txt/web links>
 Required keywords: <terms that must appear>
-Output: image prompts + slide images + script
+Output: image prompts + slide images + PPTX + script
 ```
 
 ## Example Prompt
@@ -262,6 +284,11 @@ This is a focused skill for image2-first classroom and report-style presentation
 - README preview image and animated GIF.
 - Release ZIP for manual download.
 - PowerShell-safe command examples for Windows users.
+
+## Feedback
+
+- Use [Issues](https://github.com/uuoov/ppt-image-share-builder/issues) for bugs, install problems, or script failures.
+- Use [Discussions](https://github.com/uuoov/ppt-image-share-builder/discussions/1) for demo ideas, classroom use cases, and prompt-pattern feedback.
 
 ## License
 

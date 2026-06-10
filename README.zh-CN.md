@@ -2,6 +2,11 @@
 
 [English](README.md) | 简体中文
 
+[![Release](https://img.shields.io/github/v/release/uuoov/ppt-image-share-builder?style=flat-square)](https://github.com/uuoov/ppt-image-share-builder/releases)
+[![License](https://img.shields.io/github/license/uuoov/ppt-image-share-builder?style=flat-square)](LICENSE)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-2563eb?style=flat-square)](SKILL.md)
+[![PowerPoint](https://img.shields.io/badge/output-PPTX-b7472a?style=flat-square)](scripts/images_to_pptx.py)
+
 ![演示总览图](assets/hero-contact-sheet.jpg)
 
 把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套以 image2 生成为核心的“图片式 PPT 汇报”工作流：
@@ -67,6 +72,7 @@ flowchart LR
 ```text
 <主题>_image2逐页大纲.md
 <主题>_10分钟汇报稿.md
+<主题>.pptx
 outputs/<topic-slug>-images/
   slide-01-cover.png
   slide-02-contents.png
@@ -90,9 +96,27 @@ outputs/<topic-slug>-images/
 
 ## 安装方式
 
-### Codex Desktop / Codex CLI
+### Skill Installer
 
-把这个仓库克隆到你的 Codex skills 目录即可。
+如果你的 Codex 环境带有内置 skill installer，推荐使用：
+
+Windows PowerShell：
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\.system\skill-installer\scripts\install-skill-from-github.py" --repo uuoov/ppt-image-share-builder --path . --name ppt-image-share-builder
+```
+
+macOS / Linux：
+
+```bash
+python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --repo uuoov/ppt-image-share-builder --path . --name ppt-image-share-builder
+```
+
+然后重启 Codex，让它重新加载 skill 元数据。
+
+### 手动 clone
+
+也可以直接把这个仓库克隆到你的 Codex skills 目录：
 
 Windows PowerShell：
 
@@ -105,8 +129,6 @@ macOS / Linux：
 ```bash
 git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/ppt-image-share-builder
 ```
-
-然后重启 Codex，让它重新加载 skill 元数据。
 
 ### Release 下载
 
@@ -298,6 +320,11 @@ ppt-image-share-builder/
 - README 顶部效果图和演示 GIF。
 - 方便手动下载的 release ZIP。
 - Windows PowerShell 兼容的命令示例。
+
+## 反馈
+
+- 安装问题、脚本报错或 bug，请走 [Issues](https://github.com/uuoov/ppt-image-share-builder/issues)。
+- demo 想法、课堂场景、提示词经验，可以发到 [Discussions](https://github.com/uuoov/ppt-image-share-builder/discussions/1)。
 
 ## License
 
