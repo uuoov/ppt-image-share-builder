@@ -1,19 +1,20 @@
 ---
 name: ppt-image-share-builder
-description: Build image2-first classroom sharing decks from a topic, source files, reference PPT style, and iterative user feedback. Use when Codex needs to create image2-ready per-slide prompts, generate polished PPT page images, QA a contact sheet, assemble those images into a PPTX, and write a timed presentation script for a course report or lecture-style PPT.
+description: Build image2-first classroom PPT page images from a topic, source files, reference PPT style, and iterative user feedback. Use when Codex needs to create image2-ready per-page prompts, generate polished PPT page images, QA a contact sheet, insert the final images into a PPTX wrapper, and write a timed presentation script for a course report or lecture-style PPT.
 ---
 
 # PPT Image Share Builder
 
-Use this skill for image2-first presentation work:
+Use this skill for image2-first PPT image work:
 
 ```text
 source files + reference PPT style
-  -> sourced slide outline
-  -> image2-ready per-slide prompts
-  -> generated 16:9 slide images
+  -> sourced page outline
+  -> image2-ready per-page prompts
+  -> generated 16:9 PPT page images
   -> contact-sheet QA
-  -> full-bleed PPTX assembly
+  -> final image iteration
+  -> full-bleed PPTX wrapper
   -> timed speaking script
 ```
 
@@ -21,7 +22,7 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 
 ## Core Rules
 
-- Treat generated slide images as the visual source of truth for the final PPTX.
+- Treat generated PPT page images as the visual source of truth. The PPTX is only a delivery wrapper.
 - Extract and verify source facts before writing prompts. Use official or primary sources for recent rules, cases, data, or dates.
 - Match the user's reference PPT style: layout rhythm, title system, color palette, page markers, diagram grammar, and information density.
 - Generate a small batch first when the user needs style confirmation, especially for Chinese slides.
@@ -41,19 +42,19 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
    - If the current environment provides a document extraction helper, prefer it over ad hoc encoding guesses.
 
 3. **Plan the deck**
-   - Build a thesis and slide sequence before prompting image2.
-   - For 8-12 minute classroom reports, usually use 10-14 slides.
-   - Read `references/workflow-checklist.md` when planning a full deck.
+   - Build a thesis and page sequence before prompting image2.
+   - For 8-12 minute classroom reports, usually use 10-14 page images.
+   - Read `references/workflow-checklist.md` when planning a full image set.
 
 4. **Write image2 prompts**
-   - Create one unified visual prompt, then per-slide prompts.
-   - Each slide prompt should include title, required text, visual structure, style constraints, and forbidden text.
+   - Create one unified visual prompt, then per-page prompts.
+   - Each page prompt should include title, required text, visual structure, style constraints, and forbidden text.
    - Read `references/prompt-patterns.md` when drafting or revising prompts.
 
 5. **Generate and save images**
    - Use image2 or the available raster image-generation tool.
-   - Save final images with stable names such as `slide-01-cover.png`, `slide-02-agenda.png`, and so on.
-   - Regenerate only affected slides when user feedback is local.
+   - Save final page images with stable names such as `slide-01-cover.png`, `slide-02-agenda.png`, and so on.
+   - Regenerate only affected page images when user feedback is local.
 
 6. **QA with a contact sheet**
    - Build a contact sheet after each major batch:
@@ -64,14 +65,14 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 
    - Read `references/qa-checklist.md` before final delivery.
 
-7. **Assemble PPTX**
-   - After the final images are approved, insert them as full-bleed slides:
+7. **Insert images into PPTX**
+   - After the final image2 pages are approved, insert them as full-bleed PPT pages:
 
      ```powershell
      python scripts\images_to_pptx.py --input-dir outputs\<topic-slug>-images -o <topic>.pptx
      ```
 
-   - Do not rebuild the visual design in native PPT shapes unless the user explicitly asks for editable slides.
+   - Do not rebuild the visual design as editable PPT shapes unless the user explicitly asks for editable slides.
 
 8. **Write the talk script**
    - Write the script after slide content stabilizes.

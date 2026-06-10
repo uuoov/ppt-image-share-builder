@@ -14,12 +14,12 @@ No real government logo, company logo, seal, watermark, QR code, or random extra
 
 Adapt the subject matter and palette to the reference deck.
 
-## Per-Slide Prompt Shape
+## Per-Page Prompt Shape
 
 ```text
 Use case: scientific-educational or productivity-visual
-Asset type: 16:9 PowerPoint slide image, slide <n>
-Primary request: <what the slide explains>
+Asset type: 16:9 PPT page image, page <n>
+Primary request: <what the page explains>
 Style: <reference PPT style>
 Header: <section number, page title, page number>
 Main composition: <layout>
@@ -34,9 +34,9 @@ For image generation with Chinese:
 - Prefer titles, labels, and short callouts.
 - Avoid long paragraphs.
 - For tables, use fewer rows and compact labels.
-- If exact wording matters, recommend adding final text in editable PPT on top of the generated background.
+- If exact wording matters, recommend adding final text manually in PPT after image generation.
 
-## Closing Slide Patterns
+## Closing Page Patterns
 
 Formal closing:
 
@@ -60,9 +60,9 @@ Use only the pattern requested by the user.
 
 ## Revision Prompts
 
-When regenerating a slide:
+When regenerating a page image:
 
 - Preserve the prior visual system.
 - State exactly what changed.
 - Repeat text that must not appear, such as `Do not include "Q&A"`.
-- Regenerate only the affected slide unless the style has drifted across the deck.
+- Regenerate only the affected page image unless the style has drifted across the image set.

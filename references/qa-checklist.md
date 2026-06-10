@@ -4,8 +4,8 @@ Run this before final delivery.
 
 ## Files
 
-- Formal slide images exist and are non-empty.
-- Slide count matches the final outline.
+- Formal PPT page images exist and are non-empty.
+- Page-image count matches the final outline.
 - Filenames are stable and numbered.
 - Duplicate variants are removed from the final folder.
 - Contact sheet is regenerated after final edits.
@@ -14,12 +14,12 @@ Run this before final delivery.
 
 - Cover and closing feel related.
 - Header, section number, and page marker style are consistent.
-- Dominant colors match the reference deck.
+- Dominant colors match the reference PPT style.
 - Tables, timelines, and process diagrams use a coherent visual grammar.
 
 ## Text Accuracy
 
-- Slide title text is correct.
+- Page title text is correct.
 - Chinese characters are readable and not garbled.
 - No forbidden text remains after user edits, such as `Q&A` on a no-Q&A closing page.
 - Dates, numbers, law names, case names, and statistics match sources.
@@ -28,8 +28,8 @@ Run this before final delivery.
 
 - User-requested textbook points are included.
 - User-requested audience-specific application points are included when applicable.
-- Required cases are included either on slides or in the talk script.
-- The script references any extra cases not visible on the slides.
+- Required cases are included either on page images or in the talk script.
+- The script references any extra cases not visible on the page images.
 
 ## Final Response
 

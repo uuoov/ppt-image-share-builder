@@ -1,6 +1,6 @@
 # Sample Talk Script
 
-This is a privacy-safe simulated script for an 8-10 minute classroom report. It demonstrates how the skill adds spoken structure around image-based slides.
+This is a privacy-safe simulated script for an 8-10 minute classroom report. It demonstrates how the skill adds spoken structure around image2-generated PPT page images.
 
 ## Slide 1
 
@@ -8,7 +8,7 @@ Today I will use a campus laboratory safety inspection as a sample topic. The go
 
 ## Slide 2
 
-The workflow starts with materials and a reference PPT style. We then verify the source facts, build the narrative, write image2 prompts, generate slide images, create a contact sheet, assemble the PPTX, and write the speaking script.
+The workflow starts with materials and a reference PPT style. We then verify the source facts, build the narrative, write image2 prompts, generate PPT page images, create a contact sheet, insert the final images into a PPTX wrapper, and write the speaking script.
 
 ## Slide 3
 
@@ -24,7 +24,7 @@ The inspection route gives the audience a path through the story: entrance, stor
 
 ## Slide 6
 
-The prompt board shows how image2 should be instructed. A unified visual system keeps the deck consistent, while per-slide required text and constraints reduce drift.
+The prompt board shows how image2 should be instructed. A unified visual system keeps the page images consistent, while per-page required text and constraints reduce drift.
 
 ## Slide 7
 
@@ -32,4 +32,4 @@ The contact sheet is the fastest quality check. It lets us see whether the slide
 
 ## Slide 8
 
-The final handoff includes the outline, slide images, contact sheet, PPTX, and script. The key idea is that the image deck carries the visual design, while the script carries context that should not be forced into tiny slide text.
+The final handoff includes the outline, PPT page images, contact sheet, PPTX wrapper, and script. The key idea is that the image pages carry the visual design, while the script carries context that should not be forced into tiny slide text.

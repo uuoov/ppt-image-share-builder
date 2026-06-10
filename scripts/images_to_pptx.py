@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Assemble generated slide images into a PowerPoint deck.
+"""Insert generated PPT page images into a PowerPoint wrapper.
 
-Requires python-pptx:
-    python -m pip install python-pptx
+Requires python-pptx and Pillow:
+    python -m pip install python-pptx pillow
 """
 
 from __future__ import annotations
@@ -31,6 +31,42 @@ def import_pptx():
     return Presentation, Inches
 
 
+def import_pillow():
+    try:
+        from PIL import Image
+    except ModuleNotFoundError as exc:
+        raise SystemExit(
+            "Missing dependency: Pillow. Install it with:\n"
+            "  python -m pip install pillow"
+        ) from exc
+    return Image
+
+
+def add_image_page(slide, image_path: Path, slide_width: int, slide_height: int) -> None:
+    Image = import_pillow()
+    with Image.open(image_path) as img:
+        image_width, image_height = img.size
+
+    if image_width <= 0 or image_height <= 0:
+        raise SystemExit(f"Invalid image size for {image_path}")
+
+    slide_aspect = slide_width / slide_height
+    image_aspect = image_width / image_height
+
+    if image_aspect >= slide_aspect:
+        pic_width = slide_width
+        pic_height = int(slide_width / image_aspect)
+        left = 0
+        top = int((slide_height - pic_height) / 2)
+    else:
+        pic_height = slide_height
+        pic_width = int(slide_height * image_aspect)
+        left = int((slide_width - pic_width) / 2)
+        top = 0
+
+    slide.shapes.add_picture(str(image_path), left, top, width=pic_width, height=pic_height)
+
+
 def build_pptx(image_dir: Path, output: Path, pattern: str) -> None:
     Presentation, Inches = import_pptx()
     files = sorted(image_dir.glob(pattern), key=slide_sort_key)
@@ -44,7 +80,7 @@ def build_pptx(image_dir: Path, output: Path, pattern: str) -> None:
 
     for file in files:
         slide = prs.slides.add_slide(blank_layout)
-        slide.shapes.add_picture(str(file), 0, 0, width=prs.slide_width, height=prs.slide_height)
+        add_image_page(slide, file, prs.slide_width, prs.slide_height)
 
     output.parent.mkdir(parents=True, exist_ok=True)
     prs.save(output)
@@ -52,8 +88,8 @@ def build_pptx(image_dir: Path, output: Path, pattern: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("image_dir", type=Path, nargs="?", help="Directory containing slide images")
-    parser.add_argument("--input-dir", type=Path, default=None, help="Directory containing slide images")
+    parser.add_argument("image_dir", type=Path, nargs="?", help="Directory containing final PPT page images")
+    parser.add_argument("--input-dir", type=Path, default=None, help="Directory containing final PPT page images")
     parser.add_argument("-o", "--output", type=Path, required=True, help="Output .pptx path")
     parser.add_argument("--pattern", default="slide-*.png", help="Glob pattern, default: slide-*.png")
     args = parser.parse_args()

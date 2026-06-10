@@ -1,6 +1,6 @@
 interface:
   display_name: "PPT Image Share Builder"
-  short_description: "Build image2-first PPT image decks, PPTX files, and scripts."
-  default_prompt: "Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into image2 slide prompts, generated slide images, a PPTX, and a timed presentation script."
+  short_description: "Build image2 PPT page images, PPTX wrappers, and scripts."
+  default_prompt: "Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into image2 page prompts, generated PPT page images, a PPTX wrapper, and a timed presentation script."
 policy:
   allow_implicit_invocation: true

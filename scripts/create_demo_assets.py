@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Generate a privacy-safe simulated image2 deck, contact sheet, and GIF."""
+"""Generate a privacy-safe simulated image2 PPT page set, contact sheet, and GIF."""
 
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 from textwrap import wrap
 
@@ -135,7 +136,7 @@ def slide_cover() -> None:
     rounded(draw, (90, 76, 172, 158), fill=(255, 255, 255), radius=18)
     draw.text((112, 92), "01", font=font(32, True), fill=NAVY)
     draw.text((110, 252), "Campus Lab Safety", font=font(72, True), fill="white")
-    draw.text((110, 340), "Risk Inspection Deck", font=font(72, True), fill=(206, 240, 244))
+    draw.text((110, 340), "Risk Inspection Image Pages", font=font(64, True), fill=(206, 240, 244))
     draw.text((112, 454), "A privacy-safe simulated run for image2-first PPT workflows", font=font(30), fill=(210, 220, 230))
     rounded(draw, (112, 560, 620, 720), fill=(255, 255, 255), radius=26)
     draw.text((150, 596), "Source notes", font=font(27, True), fill=INK)
@@ -155,7 +156,7 @@ def slide_storyline() -> None:
         ("Audit", "facts, tone,\nvisual rhythm", PLUM),
         ("Prompt", "image2-ready\nslide briefs", CYAN),
         ("Generate", "16:9 page\nimages", MINT),
-        ("Assemble", "contact sheet,\nPPTX, script", AMBER),
+        ("Wrap", "final images\ninside PPTX", AMBER),
     ]
     x = 250
     for i, (title, body, color) in enumerate(steps):
@@ -170,7 +171,7 @@ def slide_storyline() -> None:
             draw.polygon([(cx + 296, 414), (cx + 278, 402), (cx + 278, 426)], fill=(158, 176, 196))
     rounded(draw, (250, 680, 1700, 830), fill=(235, 249, 249), outline=(188, 226, 229), radius=26)
     draw.text((300, 718), "Core promise", font=font(30, True), fill=TEAL)
-    draw.text((300, 768), "The final PPTX keeps the image2 visual design instead of rebuilding slides from scratch.", font=font(29), fill=INK)
+    draw.text((300, 768), "The PPTX wrapper preserves the image2 page design instead of rebuilding pages from scratch.", font=font(29), fill=INK)
     save(img, "slide-02-storyline.png")
 
 
@@ -219,7 +220,7 @@ def slide_risk_map() -> None:
     ]:
         draw.ellipse((x - 18, y - 18, x + 18, y + 18), fill=color)
         draw.text((x + 28, y - 16), label, font=font(22), fill=INK)
-    card(draw, (1400, 260, 1730, 420), "Slide decision", "Risk map becomes the deck's visual spine.", PLUM)
+    card(draw, (1400, 260, 1730, 420), "Page decision", "Risk map becomes the image set's visual spine.", PLUM)
     card(draw, (1400, 470, 1730, 630), "Prompt decision", "Use color only to encode priority and action.", TEAL)
     save(img, "slide-04-risk-map.png")
 
@@ -243,7 +244,7 @@ def slide_route() -> None:
         draw.text((x - 10, y + 155), note, font=font(21), fill=MUTED)
     rounded(draw, (290, 760, 1620, 890), fill=(255, 250, 236), outline=(235, 215, 171), radius=28)
     draw.text((340, 797), "Speaker note", font=font(30, True), fill=(167, 112, 27))
-    draw.text((550, 802), "Use the route to explain how a messy inspection becomes a clear slide narrative.", font=font(27), fill=INK)
+    draw.text((550, 802), "Use the route to explain how messy notes become clear image pages.", font=font(27), fill=INK)
     save(img, "slide-05-inspection-route.png")
 
 
@@ -290,7 +291,7 @@ def slide_handoff() -> None:
         ("image2-outline.md", "page-by-page prompt plan", TEAL),
         ("slide-XX.png", "final image2 slide pages", CYAN),
         ("contact-sheet.jpg", "deck-level visual QA", AMBER),
-        ("demo-deck.pptx", "full-bleed slide assembly", PLUM),
+        ("demo-deck.pptx", "wrapper for final images", PLUM),
         ("10-minute-script.md", "speaker-ready narrative", MINT),
     ]
     for i, (name, desc, color) in enumerate(files):
@@ -302,7 +303,7 @@ def slide_handoff() -> None:
         draw.text((x + 42, y + 76), desc, font=font(22), fill=MUTED)
     rounded(draw, (980, 780, 1600, 910), fill=(233, 248, 247), outline=(183, 226, 222), radius=26)
     draw.text((1025, 817), "Ready for rehearsal", font=font(34, True), fill=TEAL)
-    draw.text((1025, 866), "The deck is image-led; the script carries the extra context.", font=font(24), fill=INK)
+    draw.text((1025, 866), "The PPTX is image-led; the script carries the extra context.", font=font(24), fill=INK)
     save(img, "slide-08-final-handoff.png")
 
 
@@ -322,10 +323,15 @@ def make_demo_slides() -> None:
 
 def make_contact_sheet() -> None:
     script = ROOT / "scripts" / "make_contact_sheet.py"
+    prior_bytecode_setting = sys.dont_write_bytecode
+    sys.dont_write_bytecode = True
     spec = importlib.util.spec_from_file_location("make_contact_sheet", script)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
-    spec.loader.exec_module(module)
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.dont_write_bytecode = prior_bytecode_setting
     module.build_contact_sheet(IMAGE_DIR, DEMO_DIR / "contact-sheet-demo.jpg", "slide-*.png", 4, 390, 34)
 
 

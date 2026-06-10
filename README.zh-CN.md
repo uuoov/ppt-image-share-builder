@@ -5,17 +5,17 @@
 [![Release](https://img.shields.io/github/v/release/uuoov/ppt-image-share-builder?style=flat-square)](https://github.com/uuoov/ppt-image-share-builder/releases)
 [![License](https://img.shields.io/github/license/uuoov/ppt-image-share-builder?style=flat-square)](LICENSE)
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-2563eb?style=flat-square)](SKILL.md)
-[![PowerPoint](https://img.shields.io/badge/output-PPTX-b7472a?style=flat-square)](scripts/images_to_pptx.py)
+[![PowerPoint](https://img.shields.io/badge/output-PPTX_wrapper-b7472a?style=flat-square)](scripts/images_to_pptx.py)
 
 ![演示总览图](assets/hero-contact-sheet.jpg)
 
-把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套以 image2 生成为核心的“图片式 PPT 汇报”工作流：
+把一个课程汇报主题、资料文件和参考 PPT 风格，转换成一套以 image2 生成为核心的“PPT 页面图片”工作流：
 
 - 有来源依据的逐页大纲
-- 每一页的 image2 / 图片生成提示词
+- 每一页的 image2 页面图片提示词
 - 由 image2 或同类图片模型生成的高质量 PPT 页面图片
 - 用于检查整体风格的缩略图总览
-- 由页面图片自动装配出来的 PPTX
+- 将最终页面图片插入得到的 PPTX 承载文件
 - 可直接练习的限时汇报稿
 - 根据用户反馈进行局部重生成和修改
 
@@ -28,11 +28,12 @@
   -> image2 可直接使用的逐页提示词
   -> 生成 16:9 PPT 页面图片
   -> 制作 contact sheet 总览检查
-  -> 把最终图片全屏插入 PPTX
+  -> 按反馈重生成需要修改的页面图片
+  -> 把最终图片全屏插入 PPTX 承载文件
   -> 生成限时汇报稿
 ```
 
-辅助脚本不替代 image2。它们只负责图片生成之后的事情：做图片总览、检查整套页面、把最终 PNG/JPG 页面插入 `.pptx`。
+辅助脚本不替代 image2。它们只负责图片生成之后的事情：做图片总览、检查整套页面、把最终 PNG/JPG 页面图片插入 `.pptx` 承载文件。
 
 ## 为什么需要这个 Skill
 
@@ -52,8 +53,8 @@ flowchart LR
   D --> E["写逐页图片提示词"]
   E --> F["生成页面图片"]
   F --> G["制作缩略图总览"]
-  G --> H["装配图片版 PPTX"]
-  H --> I["按反馈重生成部分页面"]
+  G --> H["按反馈重生成部分页面图片"]
+  H --> I["把最终图片插入 PPTX"]
   I --> J["写限时汇报稿"]
 ```
 
@@ -139,7 +140,7 @@ git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/p
 显式调用这个 skill：
 
 ```text
-Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into slide image prompts, generated slide images, and a 10-minute presentation script.
+Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into image2 page prompts, generated PPT page images, a PPTX wrapper, and a 10-minute presentation script.
 ```
 
 如果你用中文提需求，可以这样写：
@@ -161,12 +162,20 @@ Use $ppt-image-share-builder to turn my course topic, source files, and referenc
 4. 先生成前 3 页图片让我确认风格；
 5. 确认后继续生成剩余页面；
 6. 做一张总览图检查；
-7. 最后写一份 10 分钟汇报稿。
+7. 按反馈重生成需要修改的页面图片；
+8. 把最终图片插入 PPTX；
+9. 最后写一份 10 分钟汇报稿。
 ```
 
 ## 辅助脚本
 
 下面的命令都兼容 Windows PowerShell。PowerShell 5.x 不支持 `&&`，多步命令请分成多行或分开执行。
+
+先安装脚本依赖：
+
+```powershell
+python -m pip install -r requirements.txt
+```
 
 image2 生成好编号页面图片之后，自动制作 contact sheet：
 
@@ -180,10 +189,9 @@ python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/image
 python scripts/create_demo_assets.py
 ```
 
-把 image2 生成好的最终页面图片自动插入 PPTX：
+把 image2 生成好的最终页面图片自动插入 PPTX 承载文件：
 
 ```powershell
-python -m pip install python-pptx
 python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
 ```
 
@@ -238,9 +246,9 @@ python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o
 
 对于中文较多的页面，skill 会倾向于减少小字，优先保证标题、关键词和图表结构清楚。
 
-### 6. 用 image2 生成图片并保存
+### 6. 用 image2 生成 PPT 页面图片并保存
 
-一般先生成前 3 页确认风格，再继续生成后续页面。图片会按页码保存，作为最后 PPTX 的视觉源文件。
+一般先生成前 3 页确认风格，再继续生成后续页面。图片会按页码保存，作为最后展示效果的视觉源文件。
 
 ### 7. 做总览图并检查
 
@@ -253,9 +261,9 @@ python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o
 - 是否有重复文件
 - 是否出现用户要求删除的内容，例如不该出现的 `Q&A`
 
-### 8. 装配 PPTX
+### 8. 把最终图片插入 PPTX
 
-把最终确认的页面图片全屏插入 PPTX。这样 PPTX 保留 image2 的整体视觉效果，也方便课堂汇报、投屏和后续手动微调。
+把最终确认的页面图片全屏插入 PPTX。这里的 PPTX 是承载文件，核心视觉仍然来自 image2 生成的页面图片。
 
 ### 9. 写限时汇报稿
 
@@ -293,6 +301,7 @@ ppt-image-share-builder/
     create_demo_assets.py
     make_contact_sheet.py
     images_to_pptx.py
+  requirements.txt
 ```
 
 ## 设计原则
@@ -310,14 +319,14 @@ ppt-image-share-builder/
 - 把资料整理成 image2 可直接使用的逐页提示词；
 - 生成 16:9 的高质量 PPT 页面图片；
 - 用 contact sheet 检查整套图片页面；
-- 把最终图片装配成 PPTX；
+- 把最终图片插入 PPTX 承载文件；
 - 生成对应时长的汇报稿。
 
 ## 当前功能
 
 - 完整脱敏 demo：输入资料、image2 风格逐页大纲、占位页面图片总览、最终讲稿。
 - image2 生成图片之后自动生成 contact sheet 的脚本。
-- 自动把 image2 页面图片插入 PPTX 的脚本。
+- 自动把 image2 页面图片无拉伸地插入 PPTX 的脚本。
 - README 顶部效果图、演示 GIF 和 social-preview 素材。
 - 方便手动下载的 release ZIP。
 - Windows PowerShell 兼容的命令示例。

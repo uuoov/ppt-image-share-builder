@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a labeled contact sheet from generated slide images."""
+"""Create a labeled contact sheet from generated PPT page images."""
 
 from __future__ import annotations
 
@@ -39,12 +39,19 @@ def build_contact_sheet(
     thumb_width: int,
     label_height: int,
 ) -> None:
+    if cols <= 0:
+        raise SystemExit("--cols must be greater than 0")
+    if thumb_width <= 0:
+        raise SystemExit("--thumb-width must be greater than 0")
+    if label_height < 0:
+        raise SystemExit("--label-height must be 0 or greater")
+
     files = sorted(image_dir.glob(pattern), key=slide_sort_key)
     if not files:
         raise SystemExit(f"No images matched {pattern!r} in {image_dir}")
 
-    first = Image.open(files[0])
-    aspect = first.height / first.width
+    with Image.open(files[0]) as first:
+        aspect = first.height / first.width
     thumb_height = int(thumb_width * aspect)
     rows = math.ceil(len(files) / cols)
 
@@ -53,7 +60,8 @@ def build_contact_sheet(
     font = load_font(18)
 
     for idx, file in enumerate(files):
-        img = Image.open(file).convert("RGB")
+        with Image.open(file) as source:
+            img = source.convert("RGB")
         img.thumbnail((thumb_width, thumb_height), Image.LANCZOS)
 
         x0 = (idx % cols) * thumb_width
@@ -68,8 +76,8 @@ def build_contact_sheet(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("image_dir", type=Path, nargs="?", help="Directory containing slide images")
-    parser.add_argument("--input-dir", type=Path, default=None, help="Directory containing slide images")
+    parser.add_argument("image_dir", type=Path, nargs="?", help="Directory containing PPT page images")
+    parser.add_argument("--input-dir", type=Path, default=None, help="Directory containing PPT page images")
     parser.add_argument("-o", "--output", type=Path, default=None, help="Output contact sheet path")
     parser.add_argument("--pattern", default="slide-*.png", help="Glob pattern, default: slide-*.png")
     parser.add_argument("--cols", type=int, default=3, help="Number of columns")

@@ -1,0 +1,2 @@
+pillow>=9.0
+python-pptx>=0.6.21

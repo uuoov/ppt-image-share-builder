@@ -5,17 +5,17 @@ English | [简体中文](README.zh-CN.md)
 [![Release](https://img.shields.io/github/v/release/uuoov/ppt-image-share-builder?style=flat-square)](https://github.com/uuoov/ppt-image-share-builder/releases)
 [![License](https://img.shields.io/github/license/uuoov/ppt-image-share-builder?style=flat-square)](LICENSE)
 [![Codex Skill](https://img.shields.io/badge/Codex-Skill-2563eb?style=flat-square)](SKILL.md)
-[![PowerPoint](https://img.shields.io/badge/output-PPTX-b7472a?style=flat-square)](scripts/images_to_pptx.py)
+[![PowerPoint](https://img.shields.io/badge/output-PPTX_wrapper-b7472a?style=flat-square)](scripts/images_to_pptx.py)
 
 ![Demo contact sheet](assets/hero-contact-sheet.jpg)
 
-Turn a course topic, source files, and a reference PPT style into an image2-first classroom presentation workflow:
+Turn a course topic, source files, and a reference PPT style into an image2-first classroom PPT image workflow:
 
 - sourced slide outline
-- per-slide image prompts
-- high-quality slide images generated with image2 or another raster image model
+- per-page image2 prompts
+- high-quality PPT page images generated with image2 or another raster image model
 - contact-sheet QA
-- PPTX assembled from the generated images
+- PPTX wrapper created by inserting the final images
 - timed presentation script
 - revision notes from user feedback
 
@@ -25,18 +25,19 @@ The core idea is simple:
 
 ```text
 source files + reference PPT style
-  -> image2-ready per-slide prompts
+  -> image2-ready per-page prompts
   -> generated 16:9 PPT page images
   -> contact sheet QA
-  -> full-bleed PPTX assembled from those images
+  -> regenerate selected image pages if needed
+  -> insert final images into a full-bleed PPTX wrapper
   -> timed speaking script
 ```
 
-The helper scripts do not replace image2. They help after image generation: checking the image set and inserting final PNG/JPG pages into a `.pptx` deck.
+The helper scripts do not replace image2. They help after image generation: checking the image set and inserting final PNG/JPG page images into a `.pptx` wrapper.
 
 ## Why This Skill Exists
 
-Most AI deck workflows stop too early:
+Most AI PPT workflows stop too early:
 
 1. They summarize the source.
 2. They generate a few pretty slides.
@@ -50,10 +51,10 @@ flowchart LR
   B --> C["Audit reference PPT style"]
   C --> D["Build narrative spine"]
   D --> E["Write image2 prompts"]
-  E --> F["Generate slide images"]
+  E --> F["Generate PPT page images"]
   F --> G["Create contact sheet"]
-  G --> H["Assemble image PPTX"]
-  H --> I["Iterate selected slides"]
+  G --> H["Iterate selected image pages"]
+  H --> I["Insert final images into PPTX"]
   I --> J["Write timed talk script"]
 ```
 
@@ -144,7 +145,7 @@ If you are editing the skill locally, clone it anywhere and symlink or copy the 
 Invoke the skill explicitly:
 
 ```text
-Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into slide image prompts, generated slide images, and a 10-minute presentation script.
+Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into image2 page prompts, generated PPT page images, a PPTX wrapper, and a 10-minute presentation script.
 ```
 
 A strong request usually includes:
@@ -153,10 +154,10 @@ A strong request usually includes:
 Topic: <your sharing topic>
 Audience: <class / teacher / meeting>
 Duration: <8-10 minutes>
-Reference PPT: <path to sample deck>
+Reference PPT: <path to sample PPT or style example>
 Sources: <docx/pdf/txt/web links>
 Required keywords: <terms that must appear>
-Output: image prompts + slide images + PPTX + script
+Output: image2 prompts + PPT page images + PPTX wrapper + script
 ```
 
 ## Example Prompt
@@ -170,17 +171,24 @@ Please:
 1. extract the source material,
 2. audit the reference PPT style,
 3. create a 12-14 page image2 outline,
-4. generate the first 3 slide images for style confirmation,
+4. generate the first 3 PPT page images for style confirmation,
 5. continue after I approve,
-6. make a contact sheet,
-7. write the final talk script.
+6. regenerate any image pages that need revision,
+7. insert the final images into PPTX,
+8. write the final talk script.
 ```
 
 ## Helper Scripts
 
 The commands below are PowerShell-safe. On Windows PowerShell 5.x, run multi-step commands on separate lines instead of joining them with `&&`.
 
-After image2 has generated numbered slide images, create a contact sheet:
+Install optional script dependencies first:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+After image2 has generated numbered PPT page images, create a contact sheet:
 
 ```powershell
 python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
@@ -192,10 +200,9 @@ Generate the privacy-safe demo placeholder images, contact sheet, README preview
 python scripts/create_demo_assets.py
 ```
 
-Insert final image2-generated slide images into a full-bleed PPTX:
+Insert final image2-generated PPT page images into a full-bleed PPTX wrapper:
 
 ```powershell
-python -m pip install python-pptx
 python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
 ```
 
@@ -216,16 +223,16 @@ The skill follows these stages:
    It creates slide claims rather than just topic labels.
 
 5. **Write image prompts**  
-   It creates one unified visual prompt plus per-slide prompts with required text and composition.
+   It creates one unified visual prompt plus per-page prompts with required text and composition.
 
-6. **Generate and save slide images with image2**  
-   It generates one slide at a time or in small batches, then saves stable numbered files. Treat these images as the visual source of truth for the final PPTX.
+6. **Generate and save PPT page images with image2**  
+   It generates one page image at a time or in small batches, then saves stable numbered files. Treat these images as the visual source of truth.
 
 7. **QA with contact sheets**  
    It checks slide count, visible text, page numbers, duplicate variants, and style consistency.
 
-8. **Assemble the PPTX**  
-   It inserts the final images as full-bleed slides, so the deck preserves the image2 visual design.
+8. **Insert images into PPTX**  
+   It inserts the final images as full-bleed pages, so the PPTX wrapper preserves the image2 visual design.
 
 9. **Write the timed script**  
    It writes a report script that adds spoken bridges and supporting cases instead of just reading the slides.
@@ -257,6 +264,7 @@ ppt-image-share-builder/
     create_demo_assets.py
     make_contact_sheet.py
     images_to_pptx.py
+  requirements.txt
 ```
 
 ## Design Principles
@@ -272,16 +280,16 @@ ppt-image-share-builder/
 This is a focused skill for image2-first classroom and report-style presentation workflows. It is meant for:
 
 - turning source material into image2-ready slide prompts
-- generating polished 16:9 slide images
-- checking the whole image deck with a contact sheet
-- assembling the final images into a PPTX
+- generating polished 16:9 PPT page images
+- checking the whole image set with a contact sheet
+- inserting the final images into a PPTX wrapper
 - writing a timed speaking script
 
 ## Current Features
 
-- Privacy-safe demo project with input notes, image2-style prompts, placeholder slide images, contact sheet, and talk script.
+- Privacy-safe demo project with input notes, image2-style prompts, placeholder PPT page images, contact sheet, and talk script.
 - Contact sheet generator for quick QA after image2 generation.
-- PPTX assembly helper that inserts image2-generated slides into full-bleed PPT pages.
+- PPTX wrapper helper that inserts image2-generated page images without stretching them.
 - README preview image, animated GIF, and social-preview asset.
 - Release ZIP for manual download.
 - PowerShell-safe command examples for Windows users.

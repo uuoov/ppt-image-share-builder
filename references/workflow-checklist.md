@@ -1,6 +1,6 @@
 # Workflow Checklist
 
-Use this checklist for a full course-sharing PPT image workflow.
+Use this checklist for a full course-sharing PPT page image workflow.
 
 ## Intake
 
@@ -8,8 +8,8 @@ Use this checklist for a full course-sharing PPT image workflow.
 - Presenter name/date if needed
 - Audience and course context
 - Target duration
-- Required slide count or likely slide count
-- Whether the deck is standalone or appended to an existing PPT
+- Required page-image count or likely page-image count
+- Whether the final PPTX wrapper is standalone or appended to an existing PPT
 - Source files and links
 - Reference PPT or style examples
 - Must-use keywords, concepts, cases, laws, or textbook terms
@@ -28,7 +28,7 @@ Use this checklist for a full course-sharing PPT image workflow.
 
 ## Reference PPT Audit
 
-- Slide count and section rhythm
+- Page count and section rhythm
 - Cover and closing style
 - Directory style
 - Header/page marker pattern
@@ -43,7 +43,7 @@ Use this checklist for a full course-sharing PPT image workflow.
 
 - Build a thesis and arc before image generation.
 - Use claim titles rather than topic labels when possible.
-- Give every slide a role:
+- Give every page image a role:
   - cover
   - agenda
   - why it matters
@@ -56,7 +56,7 @@ Use this checklist for a full course-sharing PPT image workflow.
   - trend/career
   - summary
   - closing
-- Add a formal closing page when the deck is for a report.
+- Add a formal closing page when the PPT image set is for a report.
 
 ## Iteration Log
 
