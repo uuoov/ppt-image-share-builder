@@ -1,27 +1,35 @@
 # Sample Talk Script
 
-This demo script is intentionally short. In a real 10-minute workflow, the script should add source-backed cases and spoken bridges that are not fully written on the slides.
+This is a privacy-safe simulated script for an 8-10 minute classroom report. It demonstrates how the skill adds spoken structure around image-based slides.
 
 ## Slide 1
 
-Today I will show how a messy course topic can become a sourced image-based presentation. The important part is not only generating attractive slides, but keeping the sources, visual style, and spoken script aligned.
+Today I will use a campus laboratory safety inspection as a sample topic. The goal is not to claim this is a real school case, but to show how a course topic can become an image2-first presentation workflow.
 
 ## Slide 2
 
-The workflow begins with collecting sources, then auditing the reference PPT, building the narrative spine, generating images, checking the contact sheet, and finally writing the timed script.
+The workflow starts with materials and a reference PPT style. We then verify the source facts, build the narrative, write image2 prompts, generate slide images, create a contact sheet, assemble the PPTX, and write the speaking script.
 
 ## Slide 3
 
-Before designing, the agent should separate evidence from interpretation. Source notes, dates, official pages, and case details should be checked before they appear in a slide or a talk script.
+Before design, the agent should separate evidence from interpretation. Even in a synthetic demo, we keep the same rule: source notes drive the deck, while visuals help organize the argument.
 
 ## Slide 4
 
-Image prompts need a unified visual system. Then each slide gets a clear title, required text, layout structure, and constraints such as no fake logos or watermarks.
+The risk map turns scattered notes into a clear structure. High-impact and high-likelihood issues become priority content, while routine items stay in supporting explanation or speaker notes.
 
 ## Slide 5
 
-The contact sheet is the fastest way to catch style drift, duplicated slides, unreadable text, or missing page numbers before final delivery.
+The inspection route gives the audience a path through the story: entrance, storage, bench operation, records, and closeout. This makes the talk easier to follow than a flat list of safety problems.
 
 ## Slide 6
 
-The final package should include numbered slide images, the outline, and a talk script. That makes the handoff useful for both editing and rehearsal.
+The prompt board shows how image2 should be instructed. A unified visual system keeps the deck consistent, while per-slide required text and constraints reduce drift.
+
+## Slide 7
+
+The contact sheet is the fastest quality check. It lets us see whether the slide count, colors, page markers, and text density work as a whole before building the PPTX.
+
+## Slide 8
+
+The final handoff includes the outline, slide images, contact sheet, PPTX, and script. The key idea is that the image deck carries the visual design, while the script carries context that should not be forced into tiny slide text.

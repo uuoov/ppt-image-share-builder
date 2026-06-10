@@ -2,15 +2,17 @@
 
 ## Unified Visual Prompt
 
-16:9 horizontal PPT page, professional blue-white classroom report style, deep navy titles, blue section markers, green compliance accents, red only for risk warnings, clean line icons, formal academic layout, no logos or watermarks.
+16:9 horizontal PowerPoint slide image, modern academic report style, deep navy base, white content panels, teal and cyan structure accents, mint for normal controls, amber for caution, coral for high-priority risk, clean dashboard cards, readable page markers, no logos, no seals, no QR codes, no watermark, synthetic demo content only.
 
 ## Slide Plan
 
-1. Cover: Lab Safety Inspection
-2. Workflow Overview: collect, audit, generate, revise, script, deliver
-3. Source Audit: documents, primary sources, case notes
-4. Image Prompts: visual system, required text, no fake logos
-5. Contact Sheet QA: count, consistency, text
-6. Final Package: slides, script, handoff
+1. Cover: Campus Lab Safety Risk Inspection
+2. Storyline: From materials to image2 prompts, slide images, PPTX, and script
+3. Source Pack: course brief, reference PPT, synthetic notes, evidence rule
+4. Risk Map: probability-impact matrix before slide design
+5. Inspection Route: entrance, storage, bench, records, closeout
+6. Image2 Prompt Board: unified visual system, required text, constraints
+7. Contact Sheet QA: count, style, text review
+8. Final Handoff: outline, slide images, contact sheet, PPTX, talk script
 
 In a real run, send these prompts to image2, save the resulting 16:9 slide images in `images/`, review them as a contact sheet, then assemble the final images into PPTX. The files currently in `images/` are synthetic placeholders, not a real generated course deck.

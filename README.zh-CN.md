@@ -85,7 +85,7 @@ outputs/<topic-slug>-images/
 
 ## 脱敏 Demo
 
-仓库里已经放了一个完全脱敏的合成示例，主题是实验室安全检查工作流，不包含私人课程资料、学生姓名或未公开文件。其中 `images/` 是用于公开展示交付链路的占位页面图，真实项目里这一层应由 image2 生成。
+仓库里已经放了一个完全脱敏的模拟案例：**Campus Lab Safety Risk Inspection**。它不包含私人课程资料、学生姓名、学校名称或未公开文件。其中 `images/` 是用于公开展示交付链路的占位页面图，真实项目里这一层应由 image2 生成。
 
 - [输入资料示例](examples/lab-safety-check/input-notes.md)
 - [image2 逐页大纲示例](examples/lab-safety-check/image2-outline.md)
@@ -278,6 +278,7 @@ ppt-image-share-builder/
   assets/
     hero-contact-sheet.jpg
     demo.gif
+    social-preview.jpg
   examples/
     lab-safety-check/
       input-notes.md
@@ -317,7 +318,7 @@ ppt-image-share-builder/
 - 完整脱敏 demo：输入资料、image2 风格逐页大纲、占位页面图片总览、最终讲稿。
 - image2 生成图片之后自动生成 contact sheet 的脚本。
 - 自动把 image2 页面图片插入 PPTX 的脚本。
-- README 顶部效果图和演示 GIF。
+- README 顶部效果图、演示 GIF 和 social-preview 素材。
 - 方便手动下载的 release ZIP。
 - Windows PowerShell 兼容的命令示例。
 

@@ -86,7 +86,7 @@ The exact filenames can be adapted to the project language and topic.
 
 ## Demo
 
-The repository includes a privacy-safe synthetic demo. Its `images/` folder is a stand-in for real image2 outputs, so the repo can show the handoff without publishing private course material.
+The repository includes a privacy-safe simulated run: **Campus Lab Safety Risk Inspection**. Its `images/` folder is a stand-in for real image2 outputs, so the repo can show the handoff without publishing private course material.
 
 - [input notes](examples/lab-safety-check/input-notes.md)
 - [image2 outline](examples/lab-safety-check/image2-outline.md)
@@ -242,6 +242,7 @@ ppt-image-share-builder/
   assets/
     hero-contact-sheet.jpg
     demo.gif
+    social-preview.jpg
   examples/
     lab-safety-check/
       input-notes.md
@@ -281,7 +282,7 @@ This is a focused skill for image2-first classroom and report-style presentation
 - Privacy-safe demo project with input notes, image2-style prompts, placeholder slide images, contact sheet, and talk script.
 - Contact sheet generator for quick QA after image2 generation.
 - PPTX assembly helper that inserts image2-generated slides into full-bleed PPT pages.
-- README preview image and animated GIF.
+- README preview image, animated GIF, and social-preview asset.
 - Release ZIP for manual download.
 - PowerShell-safe command examples for Windows users.
 
