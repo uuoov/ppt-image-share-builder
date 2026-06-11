@@ -138,6 +138,10 @@ git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/p
 
 也可以从 [GitHub Releases](https://github.com/uuoov/ppt-image-share-builder/releases) 下载最新 ZIP，解压后放入 Codex skills 目录。
 
+### 开发安装
+
+如果你正在本地编辑这个 skill，可以把仓库克隆到任意目录，再复制或软链接到 Codex skills 目录。
+
 ## 快速开始
 
 显式调用这个 skill：
@@ -145,6 +149,8 @@ git clone https://github.com/uuoov/ppt-image-share-builder.git ~/.codex/skills/p
 ```text
 Use $ppt-image-share-builder to turn my course topic, source files, and reference PPT style into image2 page prompts, generated PPT page images, a PPTX wrapper, and a 10-minute presentation script.
 ```
+
+## 示例 Prompt
 
 如果你用中文提需求，可以这样写：
 
