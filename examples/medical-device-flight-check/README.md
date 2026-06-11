@@ -10,7 +10,6 @@ source extract + public cases
   -> source-backed page content
   -> image2 full-page PPT images
   -> contact sheet QA
-  -> contact sheet QA
   -> PPTX wrapper
   -> 10-minute talk script
 ```
