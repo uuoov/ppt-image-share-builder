@@ -84,14 +84,16 @@ outputs/<topic-slug>-images/
 
 实际文件名可以根据你的主题和语言调整。
 
-## 脱敏 Demo
+## Demo
 
-仓库里已经放了一个完全脱敏的模拟案例：**Campus Lab Safety Risk Inspection**。它不包含私人课程资料、学生姓名、学校名称或未公开文件。其中 `images/` 是用于公开展示交付链路的占位页面图，真实项目里这一层应由 image2 生成。
+仓库现在包含一个真正跑通的示例：**Medical Device Flight Check**。它围绕医疗器械飞行检查课堂汇报，使用公开监管案例和脱敏后的课程资料摘录，由 image2 生成完整 16:9 页面候选图，再通过 contact sheet 挑选和检查，最后生成 PPTX 承载文件和 10 分钟讲稿。
 
-- [输入资料示例](examples/lab-safety-check/input-notes.md)
-- [image2 逐页大纲示例](examples/lab-safety-check/image2-outline.md)
-- [生成图片总览](examples/lab-safety-check/contact-sheet-demo.jpg)
-- [最终讲稿示例](examples/lab-safety-check/10-minute-script.md)
+- [输入资料示例](examples/medical-device-flight-check/input-notes.md)
+- [image2 逐页大纲示例](examples/medical-device-flight-check/image2-outline.md)
+- [生成图片总览](examples/medical-device-flight-check/contact-sheet-demo.jpg)
+- [最终讲稿示例](examples/medical-device-flight-check/10-minute-script.md)
+
+原来的 **Campus Lab Safety Risk Inspection** 仍保留为完全脱敏的合成备用示例，但不再作为主预览。
 
 ![演示 GIF](assets/demo.gif)
 
@@ -180,10 +182,10 @@ python -m pip install -r requirements.txt
 image2 生成好编号页面图片之后，自动制作 contact sheet：
 
 ```powershell
-python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
+python scripts/make_contact_sheet.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/contact-sheet-demo.jpg
 ```
 
-重新生成脱敏 demo 占位图片、总览图、README 顶部效果图和 GIF：
+重新生成完全脱敏的合成备用 demo，并刷新 README 顶部效果图和 GIF。如果医疗器械真实 demo 存在，顶层预览资产会优先使用这个主 demo，而不是回退到合成占位图：
 
 ```powershell
 python scripts/create_demo_assets.py
@@ -192,7 +194,7 @@ python scripts/create_demo_assets.py
 把 image2 生成好的最终页面图片自动插入 PPTX 承载文件：
 
 ```powershell
-python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
+python scripts/images_to_pptx.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/demo-deck.pptx
 ```
 
 ## 工作流说明
@@ -288,6 +290,13 @@ ppt-image-share-builder/
     demo.gif
     social-preview.jpg
   examples/
+    medical-device-flight-check/
+      input-notes.md
+      image2-outline.md
+      contact-sheet-demo.jpg
+      demo-deck.pptx
+      10-minute-script.md
+      images/
     lab-safety-check/
       input-notes.md
       image2-outline.md
@@ -324,7 +333,8 @@ ppt-image-share-builder/
 
 ## 当前功能
 
-- 完整脱敏 demo：输入资料、image2 风格逐页大纲、占位页面图片总览、最终讲稿。
+- 医疗器械飞行检查真实跑通 demo：image2 页面候选图、contact sheet 检查、PPTX 承载文件和最终讲稿。
+- 完全脱敏的合成备用 demo：适合不展示法规或课堂具体材料的公开场景。
 - image2 生成图片之后自动生成 contact sheet 的脚本。
 - 自动把 image2 页面图片无拉伸地插入 PPTX 的脚本。
 - README 顶部效果图、演示 GIF 和 social-preview 素材。

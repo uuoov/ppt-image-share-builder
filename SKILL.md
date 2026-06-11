@@ -27,6 +27,7 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 - Match the user's reference PPT style: layout rhythm, title system, color palette, page markers, diagram grammar, and information density.
 - Generate a small batch first when the user needs style confirmation, especially for Chinese slides.
 - Keep generated Chinese text short. Recommend adding exact long text manually in PPT if precision matters.
+- For dense Chinese or source-critical text, use image2 for the visual page or background and compose exact text locally, then treat the exported full-page image as the final slide.
 - Do not generate government seals, company logos, QR codes, or watermarks unless the user supplied verified assets and explicitly requests them.
 - On Windows PowerShell 5.x, avoid Bash-style command chaining such as `&&`; run multi-step commands separately.
 - For Chinese paths, do not put non-ASCII path literals inside here-strings piped to native programs. Pass paths as arguments or use `-LiteralPath`.

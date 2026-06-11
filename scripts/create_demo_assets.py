@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Generate a privacy-safe simulated image2 PPT page set, contact sheet, and GIF."""
+"""Generate fallback demo assets and refresh repository preview assets.
+
+The synthetic lab-safety deck is kept as a privacy-safe fallback. Repository
+preview images prefer the real medical-device demo when it exists, so running
+this script does not accidentally revert the README preview to placeholders.
+"""
 
 from __future__ import annotations
 
@@ -13,6 +18,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 DEMO_DIR = ROOT / "examples" / "lab-safety-check"
+PRIMARY_DEMO_DIR = ROOT / "examples" / "medical-device-flight-check"
 IMAGE_DIR = DEMO_DIR / "images"
 ASSET_DIR = ROOT / "assets"
 
@@ -336,7 +342,13 @@ def make_contact_sheet() -> None:
 
 
 def make_gif() -> None:
-    files = sorted(IMAGE_DIR.glob("slide-*.png"))
+    preview_dir = PRIMARY_DEMO_DIR / "images" if (PRIMARY_DEMO_DIR / "images").exists() else IMAGE_DIR
+    contact_sheet = (
+        PRIMARY_DEMO_DIR / "contact-sheet-demo.jpg"
+        if (PRIMARY_DEMO_DIR / "contact-sheet-demo.jpg").exists()
+        else DEMO_DIR / "contact-sheet-demo.jpg"
+    )
+    files = sorted(preview_dir.glob("slide-*.png"))
     frames = []
     for file in files:
         img = Image.open(file).convert("RGB")
@@ -353,8 +365,13 @@ def make_gif() -> None:
         loop=0,
         optimize=True,
     )
-    Image.open(DEMO_DIR / "contact-sheet-demo.jpg").save(ASSET_DIR / "hero-contact-sheet.jpg", quality=92)
-    cover = Image.open(IMAGE_DIR / "slide-01-cover.png").convert("RGB")
+    Image.open(contact_sheet).save(ASSET_DIR / "hero-contact-sheet.jpg", quality=92)
+    cover_path = (
+        PRIMARY_DEMO_DIR / "images" / "slide-01-cover.png"
+        if (PRIMARY_DEMO_DIR / "images" / "slide-01-cover.png").exists()
+        else IMAGE_DIR / "slide-01-cover.png"
+    )
+    cover = Image.open(cover_path).convert("RGB")
     cover.thumbnail((1280, 720), Image.LANCZOS)
     preview = Image.new("RGB", (1280, 640), (12, 39, 67))
     preview.paste(cover, (0, -40))
@@ -366,6 +383,7 @@ def main() -> None:
     make_contact_sheet()
     make_gif()
     print(DEMO_DIR)
+    print(PRIMARY_DEMO_DIR if PRIMARY_DEMO_DIR.exists() else "no primary demo")
     print(ASSET_DIR / "hero-contact-sheet.jpg")
     print(ASSET_DIR / "demo.gif")
     print(ASSET_DIR / "social-preview.jpg")

@@ -87,12 +87,14 @@ The exact filenames can be adapted to the project language and topic.
 
 ## Demo
 
-The repository includes a privacy-safe simulated run: **Campus Lab Safety Risk Inspection**. Its `images/` folder is a stand-in for real image2 outputs, so the repo can show the handoff without publishing private course material.
+The repository now includes a real end-to-end demo run: **Medical Device Flight Check**. It uses public regulatory inspection cases plus a desensitized classroom source extract, generates full 16:9 page candidates with image2, selects the best page images through contact-sheet QA, and wraps the final image set in PPTX.
 
-- [input notes](examples/lab-safety-check/input-notes.md)
-- [image2 outline](examples/lab-safety-check/image2-outline.md)
-- [generated image overview](examples/lab-safety-check/contact-sheet-demo.jpg)
-- [sample talk script](examples/lab-safety-check/10-minute-script.md)
+- [input notes](examples/medical-device-flight-check/input-notes.md)
+- [image2 outline](examples/medical-device-flight-check/image2-outline.md)
+- [generated image overview](examples/medical-device-flight-check/contact-sheet-demo.jpg)
+- [sample talk script](examples/medical-device-flight-check/10-minute-script.md)
+
+The older **Campus Lab Safety Risk Inspection** example remains as a privacy-safe synthetic fallback, but it is no longer the primary preview.
 
 ![Demo animation](assets/demo.gif)
 
@@ -191,10 +193,10 @@ python -m pip install -r requirements.txt
 After image2 has generated numbered PPT page images, create a contact sheet:
 
 ```powershell
-python scripts/make_contact_sheet.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/contact-sheet-demo.jpg
+python scripts/make_contact_sheet.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/contact-sheet-demo.jpg
 ```
 
-Generate the privacy-safe demo placeholder images, contact sheet, README preview image, and GIF:
+Regenerate the privacy-safe synthetic fallback demo and refresh README preview assets. If the medical-device demo exists, top-level preview assets are refreshed from that primary demo instead of the synthetic placeholders:
 
 ```powershell
 python scripts/create_demo_assets.py
@@ -203,7 +205,7 @@ python scripts/create_demo_assets.py
 Insert final image2-generated PPT page images into a full-bleed PPTX wrapper:
 
 ```powershell
-python scripts/images_to_pptx.py --input-dir examples/lab-safety-check/images -o examples/lab-safety-check/demo-deck.pptx
+python scripts/images_to_pptx.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/demo-deck.pptx
 ```
 
 ## Workflow Details
@@ -251,6 +253,13 @@ ppt-image-share-builder/
     demo.gif
     social-preview.jpg
   examples/
+    medical-device-flight-check/
+      input-notes.md
+      image2-outline.md
+      contact-sheet-demo.jpg
+      demo-deck.pptx
+      10-minute-script.md
+      images/
     lab-safety-check/
       input-notes.md
       image2-outline.md
@@ -287,7 +296,8 @@ This is a focused skill for image2-first classroom and report-style presentation
 
 ## Current Features
 
-- Privacy-safe demo project with input notes, image2-style prompts, placeholder PPT page images, contact sheet, and talk script.
+- Real medical-device flight-check demo with image2-generated page candidates, contact-sheet QA, PPTX wrapper, and talk script.
+- Privacy-safe synthetic fallback demo for public examples that must avoid regulatory or classroom specifics.
 - Contact sheet generator for quick QA after image2 generation.
 - PPTX wrapper helper that inserts image2-generated page images without stretching them.
 - README preview image, animated GIF, and social-preview asset.
