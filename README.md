@@ -87,7 +87,7 @@ The exact filenames can be adapted to the project language and topic.
 
 ## Demo
 
-The repository now includes a real end-to-end demo run: **Medical Device Flight Check**. It uses public regulatory inspection cases plus a desensitized classroom source extract, generates image2 medical-regulation visual assets, composes source-backed Chinese report content into full 16:9 page images, checks the result with a contact sheet, and wraps the final image set in PPTX.
+The repository now includes a real end-to-end demo run: **Medical Device Flight Check**. It uses public regulatory inspection cases plus a desensitized classroom source extract, turns the content into image2-ready page prompts, uses image2-generated full-page PPT images as the visual source of truth, checks the result with a contact sheet, and wraps the final image set in PPTX.
 
 - [input notes](examples/medical-device-flight-check/input-notes.md)
 - [content report plan](examples/medical-device-flight-check/report-content.md)
@@ -203,12 +203,6 @@ Regenerate the privacy-safe synthetic fallback demo and refresh README preview a
 python scripts/create_demo_assets.py
 ```
 
-Regenerate the content-rich medical-device demo from bundled image2 visual assets:
-
-```powershell
-python scripts/create_medical_device_demo.py
-```
-
 Insert final image2-generated PPT page images into a full-bleed PPTX wrapper:
 
 ```powershell
@@ -268,7 +262,6 @@ ppt-image-share-builder/
       demo-deck.pptx
       10-minute-script.md
       images/
-      visual-assets/
     lab-safety-check/
       input-notes.md
       image2-outline.md
@@ -280,7 +273,6 @@ ppt-image-share-builder/
     qa-checklist.md
   scripts/
     create_demo_assets.py
-    create_medical_device_demo.py
     make_contact_sheet.py
     images_to_pptx.py
   requirements.txt
@@ -306,7 +298,7 @@ This is a focused skill for image2-first classroom and report-style presentation
 
 ## Current Features
 
-- Real medical-device flight-check demo with image2 visual assets, source-backed report content, contact-sheet QA, PPTX wrapper, and talk script.
+- Real medical-device flight-check demo with image2 full-page visuals, source-backed report content, contact-sheet QA, PPTX wrapper, and talk script.
 - Privacy-safe synthetic fallback demo for public examples that must avoid regulatory or classroom specifics.
 - Contact sheet generator for quick QA after image2 generation.
 - PPTX wrapper helper that inserts image2-generated page images without stretching them.

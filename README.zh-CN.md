@@ -86,7 +86,7 @@ outputs/<topic-slug>-images/
 
 ## Demo
 
-仓库现在包含一个真正跑通的示例：**Medical Device Flight Check**。它围绕医疗器械飞行检查课堂汇报，使用公开监管案例和脱敏后的课程资料摘录，由 image2 生成医疗监管视觉资产，再把有来源依据的中文报告内容排成完整 16:9 页面图片，最后生成 contact sheet、PPTX 承载文件和 10 分钟讲稿。
+仓库现在包含一个真正跑通的示例：**Medical Device Flight Check**。它围绕医疗器械飞行检查课堂汇报，使用公开监管案例和脱敏后的课程资料摘录，把内容整理成 image2 可用的逐页提示词，由 image2 生成完整 16:9 PPT 页面图片，最后生成 contact sheet、PPTX 承载文件和 10 分钟讲稿。
 
 - [输入资料示例](examples/medical-device-flight-check/input-notes.md)
 - [逐页内容稿](examples/medical-device-flight-check/report-content.md)
@@ -190,12 +190,6 @@ python scripts/make_contact_sheet.py --input-dir examples/medical-device-flight-
 
 ```powershell
 python scripts/create_demo_assets.py
-```
-
-使用仓库内置 image2 视觉资产，重新生成有内容的医疗器械飞检 demo：
-
-```powershell
-python scripts/create_medical_device_demo.py
 ```
 
 把 image2 生成好的最终页面图片自动插入 PPTX 承载文件：
@@ -305,7 +299,6 @@ ppt-image-share-builder/
       demo-deck.pptx
       10-minute-script.md
       images/
-      visual-assets/
     lab-safety-check/
       input-notes.md
       image2-outline.md
@@ -317,7 +310,6 @@ ppt-image-share-builder/
     qa-checklist.md
   scripts/
     create_demo_assets.py
-    create_medical_device_demo.py
     make_contact_sheet.py
     images_to_pptx.py
   requirements.txt
@@ -343,7 +335,7 @@ ppt-image-share-builder/
 
 ## 当前功能
 
-- 医疗器械飞行检查真实跑通 demo：image2 视觉资产、有来源依据的逐页内容稿、contact sheet 检查、PPTX 承载文件和最终讲稿。
+- 医疗器械飞行检查真实跑通 demo：image2 全页视觉图、有来源依据的逐页内容稿、contact sheet 检查、PPTX 承载文件和最终讲稿。
 - 完全脱敏的合成备用 demo：适合不展示法规或课堂具体材料的公开场景。
 - image2 生成图片之后自动生成 contact sheet 的脚本。
 - 自动把 image2 页面图片无拉伸地插入 PPTX 的脚本。
