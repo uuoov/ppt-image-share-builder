@@ -1,18 +1,27 @@
-# Three-Pass Iteration Playbook
+# One-Pass Delivery Playbook
 
 Use this playbook when building or revising a multi-page image2 PPT image set, especially when the user is not a prompt expert.
 
 ## Goal
 
-Make the workflow feel simple to the user:
+Make the workflow feel simple to the user by delivering a complete first version whenever possible.
 
-1. The first version should not be shallow.
-2. Revision pages should not drift away from the approved style.
-3. Final QA should remove meaningless visual elements before PPTX delivery.
+The user should not need to understand prompt engineering or approve multiple rounds. Codex should run the quality gates internally:
 
-## Pass 1: Content-Rich First Draft
+1. Content-rich gate: the first delivered version must not be shallow.
+2. Style-lock gate: pages should share one visual system from the start.
+3. Cleanup gate: meaningless visual elements should be removed before PPTX delivery.
 
-The first batch should prove both content depth and visual direction. Do not generate pages that are only decorative.
+Only stop for user confirmation when:
+
+- The source material or target topic is genuinely ambiguous.
+- The user explicitly asks to approve the first pages before continuing.
+- The visual generator repeatedly fails or produces unusable pages.
+- A high-stakes factual claim cannot be verified.
+
+## Gate 1: Content-Rich First Version
+
+The first delivered version should prove both content depth and visual direction. Do not generate pages that are only decorative.
 
 Minimum standard for each content page:
 
@@ -29,19 +38,21 @@ Minimum standard for each content page:
 - A clear page role in the report arc.
 - No filler panels, fake charts, or purely decorative icons.
 
-For a first style sample, prefer 3 pages:
+For the full first version, include enough page variety to feel complete:
 
 - Cover: proves visual tone.
-- One dense content page: proves information handling.
-- One diagram/case page: proves visual grammar.
+- Agenda or structure page.
+- Definition/background page.
+- Process/framework page.
+- Case/example page.
+- Comparison/trend/application page when relevant.
+- Summary and formal closing page.
 
 If the user's topic is under-specified, infer a reasonable structure and state the assumption in the outline. Do not stop at a thin outline.
 
-## Pass 2: Feedback Iteration With Style Lock
+## Gate 2: Style Lock Before Generation
 
-When the user gives feedback, translate it into an edit plan before generating again.
-
-Create or update a style lock:
+Create the style lock before generating the full image set:
 
 ```text
 Style lock:
@@ -55,10 +66,12 @@ Style lock:
 - Forbidden elements: <Q&A, random English, fake logos, meaningless X marks, etc.>
 ```
 
-Every revision prompt must repeat the style lock and state only the local change:
+Every page prompt must repeat the style lock. This prevents style drift without asking the user to supervise every page.
+
+When the user gives feedback after delivery, translate it into an edit plan and keep the same style lock:
 
 ```text
-Keep the approved style lock exactly. Regenerate page <n> only.
+Keep the established style lock exactly. Regenerate page <n> only.
 Change: <specific user feedback>.
 Do not change: palette, header, page marker, icon style, diagram grammar, and neighboring page rhythm.
 Forbidden: random text, fake logos, stray X/check marks, unrelated icons, decorative charts without data meaning.
@@ -66,7 +79,7 @@ Forbidden: random text, fake logos, stray X/check marks, unrelated icons, decora
 
 If two or more regenerated pages drift, stop generating and update the unified visual prompt before continuing.
 
-## Pass 3: Meaningless Element Cleanup
+## Gate 3: Meaningless Element Cleanup
 
 Before final PPTX wrapping, inspect the contact sheet and individual problem pages.
 
@@ -88,15 +101,15 @@ For each suspect element, decide:
 
 ## User-Friendly Feedback Translation
 
-Convert vague feedback into concrete actions:
+If the user gives feedback after the first complete delivery, convert vague feedback into concrete actions:
 
 | User says | Translate to |
 | --- | --- |
 | "太简单" | Add claims, examples, source-backed points, and richer diagram structure. |
-| "不好看" | Regenerate style sample with stronger visual hierarchy, more polished background, and fewer filler cards. |
+| "不好看" | Improve the unified visual prompt, then regenerate failed or weak pages with stronger hierarchy, polished background, and fewer filler cards. |
 | "风格不统一" | Rebuild style lock and regenerate drifted pages with the same title, palette, icon, and layout grammar. |
 | "有奇怪标记" | Run meaningless element cleanup; remove stray marks, random icons, fake labels, and decorative junk. |
-| "不够傻瓜式" | Provide the user a short checklist of choices instead of asking them to write prompts. |
+| "不够傻瓜式" | Reduce user decisions; deliver a complete version with assumptions and only ask for blocked information. |
 
 ## Simple User Prompt Template
 
@@ -110,7 +123,7 @@ When the user is unsure what to provide, ask for this compact input:
 参考 PPT 或喜欢的风格：
 必须出现的关键词：
 不要出现的内容：
-先做几页给我确认：
+是否需要先确认少量页面（可选，默认不需要）：
 ```
 
-Then proceed with reasonable assumptions.
+The final line is optional. If omitted, proceed with the full one-pass delivery by default.

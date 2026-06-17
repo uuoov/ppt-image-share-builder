@@ -13,7 +13,7 @@ source files + reference PPT style
   -> image2-ready per-page prompts
   -> generated 16:9 PPT page images
   -> contact-sheet QA
-  -> final image iteration
+  -> targeted fixes only if QA fails or user asks
   -> full-bleed PPTX wrapper
   -> timed speaking script
 ```
@@ -26,9 +26,10 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 - Optimize for a non-expert user. Do not require the user to know prompt engineering terms; translate vague feedback into concrete content, style, and cleanup actions.
 - Extract and verify source facts before writing prompts. Use official or primary sources for recent rules, cases, data, or dates.
 - Match the user's reference PPT style: layout rhythm, title system, color palette, page markers, diagram grammar, and information density.
-- Generate a small batch first when the user needs style confirmation, especially for Chinese slides.
-- Never let the first generated batch be merely decorative. Each non-cover/non-closing page needs a claim, 2-4 substantive points, and a meaningful visual structure.
-- After the user gives revision feedback, create or update a style lock before regenerating pages; every regenerated page must repeat that style lock.
+- Default to one-pass delivery: generate the full useful deck in one run unless the user explicitly asks for staged confirmation or the request is too ambiguous to proceed safely.
+- Use internal gates instead of user-visible rounds: content depth gate, style lock gate, and cleanup QA gate.
+- Never let the first delivered version be merely decorative. Each non-cover/non-closing page needs a claim, 2-4 substantive points, and a meaningful visual structure.
+- Create a style lock before generating the full image set; every page prompt must repeat that style lock.
 - In final QA, remove meaningless elements: stray X/check marks, random labels, fake legends, unrelated icons, decorative charts with no data role, duplicate badges, and any unrequested Q&A text.
 - Keep generated Chinese text short. Recommend adding exact long text manually in PPT if precision matters.
 - For dense Chinese or source-critical text, use image2 for the visual page or background and compose exact text locally, then treat the exported full-page image as the final slide.
@@ -51,15 +52,15 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
    - For 8-12 minute classroom reports, usually use 10-14 page images.
    - Read `references/workflow-checklist.md` when planning a full image set.
 
-4. **Run the three-pass delivery loop**
-   - Pass 1: content-rich style sample. Generate enough substance to judge both content depth and visual quality.
-   - Pass 2: feedback iteration. Convert user feedback into a locked style system and regenerate only affected pages unless drift is widespread.
-   - Pass 3: final cleanup. Inspect the contact sheet for style drift and meaningless elements before building PPTX.
+4. **Run the one-pass delivery loop**
+   - Build the full outline, style lock, image prompts, page images, contact sheet, PPTX, and talk script in one run by default.
+   - Use three internal gates before delivery: content-rich gate, style-lock gate, and meaningless-element cleanup gate.
+   - Regenerate only failed pages when the internal QA gate catches an issue.
    - Read `references/iteration-playbook.md` before generating or revising a multi-page image set.
 
 5. **Write image2 prompts**
    - Create one unified visual prompt, then per-page prompts.
-   - Include a style lock block after the first approved page or batch.
+   - Include a style lock block before generating the full image set.
    - Each page prompt should include title, required text, visual structure, style constraints, and forbidden text.
    - Read `references/prompt-patterns.md` when drafting or revising prompts.
 
@@ -78,7 +79,7 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
    - Read `references/qa-checklist.md` before final delivery.
 
 8. **Insert images into PPTX**
-   - After the final image2 pages are approved, insert them as full-bleed PPT pages:
+   - After the final image2 pages pass QA, insert them as full-bleed PPT pages:
 
      ```powershell
      python scripts\images_to_pptx.py --input-dir outputs\<topic-slug>-images -o <topic>.pptx

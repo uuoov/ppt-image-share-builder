@@ -16,7 +16,7 @@ Run this before final delivery.
 - Header, section number, and page marker style are consistent.
 - Dominant colors match the reference PPT style.
 - Tables, timelines, and process diagrams use a coherent visual grammar.
-- Regenerated pages still follow the approved style lock.
+- Regenerated pages still follow the established style lock.
 
 ## Meaningless Element Cleanup
 

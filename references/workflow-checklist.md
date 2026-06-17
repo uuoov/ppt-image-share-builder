@@ -78,7 +78,7 @@ Update the outline file before regenerating images.
 
 ## Style Lock
 
-After the first approved image page or batch, record:
+Before generating the full image set, record:
 
 - palette and accent rules
 - title/header/page marker system
@@ -88,4 +88,4 @@ After the first approved image page or batch, record:
 - text density
 - forbidden elements
 
-Reuse the style lock in every revision prompt.
+Reuse the style lock in every page prompt and any later revision prompt.

@@ -28,18 +28,18 @@ source files + reference PPT style
   -> image2-ready per-page prompts
   -> generated 16:9 PPT page images
   -> contact sheet QA
-  -> regenerate selected image pages if needed
+  -> targeted fixes only if QA fails or user asks
   -> insert final images into a full-bleed PPTX wrapper
   -> timed speaking script
 ```
 
 The helper scripts do not replace image2. They help after image generation: checking the image set and inserting final PNG/JPG page images into a `.pptx` wrapper.
 
-The skill is designed as a three-pass workflow for non-expert users:
+The skill is designed for one-pass delivery for non-expert users. Codex should deliver a complete usable version by default, then make targeted fixes only if QA fails or the user asks:
 
-1. **Content-rich first draft**: avoid thin pages by requiring claims, source-backed points, and meaningful page structures.
-2. **Style-locked revision**: convert user feedback into a style lock so regenerated pages do not drift.
-3. **Cleanup QA**: remove meaningless marks, random icons, fake labels, unrequested Q&A, and decorative elements that do not support the report.
+1. **Content-rich gate**: avoid thin pages by requiring claims, source-backed points, and meaningful page structures.
+2. **Style-lock gate**: lock the visual system before generating the full deck so pages do not drift.
+3. **Cleanup QA gate**: remove meaningless marks, random icons, fake labels, unrequested Q&A, and decorative elements that do not support the report.
 
 ## Why This Skill Exists
 
@@ -56,12 +56,11 @@ flowchart LR
   A["Topic + source files"] --> B["Extract and verify source facts"]
   B --> C["Audit reference PPT style"]
   C --> D["Build narrative spine"]
-  D --> E["Write image2 prompts"]
-  E --> F["Generate PPT page images"]
-  F --> G["Create contact sheet"]
-  G --> H["Iterate selected image pages"]
-  H --> I["Insert final images into PPTX"]
-  I --> J["Write timed talk script"]
+  D --> E["Create style lock + image2 prompts"]
+  E --> F["Generate full PPT image set"]
+  F --> G["Contact-sheet QA + targeted fixes"]
+  G --> H["Insert final images into PPTX"]
+  H --> I["Write timed talk script"]
 ```
 
 The skill is especially useful when the user has:
@@ -180,9 +179,9 @@ Please:
 1. extract the source material,
 2. audit the reference PPT style,
 3. create a 12-14 page image2 outline,
-4. generate the first 3 PPT page images for style confirmation,
-5. continue after I approve,
-6. regenerate any image pages that need revision,
+4. create a style lock so all pages stay visually consistent,
+5. generate the full PPT page image set,
+6. create a contact sheet and fix only pages that fail QA,
 7. insert the final images into PPTX,
 8. write the final talk script.
 ```
@@ -217,6 +216,8 @@ python scripts/images_to_pptx.py --input-dir examples/medical-device-flight-chec
 
 ## User Feedback Loop
 
+The default goal is one complete delivery, not staged approval.
+
 When a user says the first version is too simple, the skill should add content depth before regenerating: stronger claims, cases, source-backed points, and richer diagrams.
 
 When a user says revised pages look inconsistent, the skill should write a style lock and reuse it in every subsequent page prompt.
@@ -243,10 +244,10 @@ The skill follows these stages:
    It creates one unified visual prompt plus per-page prompts with required text and composition.
 
 6. **Generate and save PPT page images with image2**  
-   It generates one page image at a time or in small batches, then saves stable numbered files. Treat these images as the visual source of truth.
+   It generates the full planned image set by default, then saves stable numbered files. Treat these images as the visual source of truth.
 
 7. **QA with contact sheets**  
-   It checks slide count, visible text, page numbers, duplicate variants, and style consistency.
+   It checks slide count, visible text, page numbers, duplicate variants, style consistency, and meaningless elements. It should fix failed pages before delivery when possible.
 
 8. **Insert images into PPTX**  
    It inserts the final images as full-bleed pages, so the PPTX wrapper preserves the image2 visual design.
