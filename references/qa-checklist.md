@@ -16,6 +16,15 @@ Run this before final delivery.
 - Header, section number, and page marker style are consistent.
 - Dominant colors match the reference PPT style.
 - Tables, timelines, and process diagrams use a coherent visual grammar.
+- Regenerated pages still follow the approved style lock.
+
+## Meaningless Element Cleanup
+
+- No stray X marks, check marks, question marks, warning badges, arrows, or labels without a clear role.
+- No decorative charts or fake legends that do not encode real content.
+- No unrelated icons, people, devices, buildings, seals, logos, QR codes, or watermarks.
+- No random English, pseudo-Chinese, or invented labels.
+- No visual element implies a source, authority, or statistic that is not in the content plan.
 
 ## Text Accuracy
 

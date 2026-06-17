@@ -35,6 +35,12 @@ source files + reference PPT style
 
 The helper scripts do not replace image2. They help after image generation: checking the image set and inserting final PNG/JPG page images into a `.pptx` wrapper.
 
+The skill is designed as a three-pass workflow for non-expert users:
+
+1. **Content-rich first draft**: avoid thin pages by requiring claims, source-backed points, and meaningful page structures.
+2. **Style-locked revision**: convert user feedback into a style lock so regenerated pages do not drift.
+3. **Cleanup QA**: remove meaningless marks, random icons, fake labels, unrequested Q&A, and decorative elements that do not support the report.
+
 ## Why This Skill Exists
 
 Most AI PPT workflows stop too early:
@@ -209,6 +215,14 @@ Insert final image2-generated PPT page images into a full-bleed PPTX wrapper:
 python scripts/images_to_pptx.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/demo-deck.pptx
 ```
 
+## User Feedback Loop
+
+When a user says the first version is too simple, the skill should add content depth before regenerating: stronger claims, cases, source-backed points, and richer diagrams.
+
+When a user says revised pages look inconsistent, the skill should write a style lock and reuse it in every subsequent page prompt.
+
+When a user says the final pages include meaningless marks or strange symbols, the skill should run final cleanup QA and regenerate only the affected pages.
+
 ## Workflow Details
 
 The skill follows these stages:
@@ -269,6 +283,7 @@ ppt-image-share-builder/
       10-minute-script.md
   references/
     workflow-checklist.md
+    iteration-playbook.md
     prompt-patterns.md
     qa-checklist.md
   scripts/

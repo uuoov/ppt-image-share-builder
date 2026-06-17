@@ -35,6 +35,12 @@
 
 辅助脚本不替代 image2。它们只负责图片生成之后的事情：做图片总览、检查整套页面、把最终 PNG/JPG 页面图片插入 `.pptx` 承载文件。
 
+这个 skill 默认按三轮来服务不懂提示词的用户：
+
+1. **内容充实的第一稿**：避免页面太空，每页要有观点、资料依据和有意义的图表结构。
+2. **锁定风格的修改稿**：把用户反馈转换成风格锁定表，后续重生成页面不能漂移。
+3. **最终清理检查**：删除无意义的 X、随机图标、假标签、未要求的 Q&A，以及不支撑汇报内容的装饰元素。
+
 ## 为什么需要这个 Skill
 
 很多 AI 做 PPT 的流程停得太早：
@@ -204,6 +210,14 @@ python scripts/create_demo_assets.py
 python scripts/images_to_pptx.py --input-dir examples/medical-device-flight-check/images -o examples/medical-device-flight-check/demo-deck.pptx
 ```
 
+## 用户反馈迭代
+
+如果用户说第一版太简单，skill 应先补内容深度：更明确的页面观点、案例、来源依据和更有信息量的图表结构。
+
+如果用户说修改后页面风格不统一，skill 应先写出风格锁定表，并在后续每一页提示词里复用。
+
+如果用户说最终图里有无意义标记或奇怪符号，skill 应进入最终清理检查，只重生成受影响页面。
+
 ## 工作流说明
 
 ### 1. 收集输入
@@ -312,6 +326,7 @@ ppt-image-share-builder/
       10-minute-script.md
   references/
     workflow-checklist.md
+    iteration-playbook.md
     prompt-patterns.md
     qa-checklist.md
   scripts/

@@ -63,6 +63,18 @@ Use only the pattern requested by the user.
 When regenerating a page image:
 
 - Preserve the prior visual system.
+- Repeat the style lock from the approved batch.
 - State exactly what changed.
 - Repeat text that must not appear, such as `Do not include "Q&A"`.
+- Explicitly forbid meaningless elements: stray X marks, random icons, fake chart labels, unrelated objects, and decorative badges without content meaning.
 - Regenerate only the affected page image unless the style has drifted across the image set.
+
+## Style Lock Block
+
+Use this block once a style is approved:
+
+```text
+Style lock:
+16:9 PPT page, same palette, same title/header/page marker system, same icon style, same diagram grammar, same background depth, same text density as approved pages.
+Do not introduce new visual systems, new section marker styles, unrelated decorative icons, random English, fake logos, QR codes, watermarks, stray X/check marks, or unrequested Q&A.
+```

@@ -57,6 +57,11 @@ Use this checklist for a full course-sharing PPT page image workflow.
   - summary
   - closing
 - Add a formal closing page when the PPT image set is for a report.
+- Apply the first-draft minimum standard:
+  - every content page has a claim
+  - every content page has 2-4 real points
+  - every content page uses a meaningful visual structure
+  - no filler cards or purely decorative diagrams
 
 ## Iteration Log
 
@@ -70,3 +75,17 @@ Track user changes such as:
 - regenerate specific pages only
 
 Update the outline file before regenerating images.
+
+## Style Lock
+
+After the first approved image page or batch, record:
+
+- palette and accent rules
+- title/header/page marker system
+- layout grammar
+- icon style
+- background style
+- text density
+- forbidden elements
+
+Reuse the style lock in every revision prompt.
