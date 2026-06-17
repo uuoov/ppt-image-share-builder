@@ -4,6 +4,8 @@ Use this checklist for a full course-sharing PPT page image workflow.
 
 ## Intake
 
+Start with the grill-me style intake in `references/intake-grillme.md`. Ask only missing essential items, then proceed with stated assumptions so one-pass delivery stays simple.
+
 - Topic and exact title
 - Presenter name/date if needed
 - Audience and course context
@@ -13,6 +15,8 @@ Use this checklist for a full course-sharing PPT page image workflow.
 - Source files and links
 - Reference PPT or style examples
 - Must-use keywords, concepts, cases, laws, or textbook terms
+- Forbidden content such as Q&A, fake logos, meaningless marks, random English, unrelated icons, or decorative charts without a data role
+- Requested outputs such as page images, contact sheet, PPTX wrapper, and timed speaking script
 
 ## Source Handling
 

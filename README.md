@@ -41,6 +41,8 @@ The skill is designed for one-pass delivery for non-expert users. Codex should d
 2. **Style-lock gate**: lock the visual system before generating the full deck so pages do not drift.
 3. **Cleanup QA gate**: remove meaningless marks, random icons, fake labels, unrequested Q&A, and decorative elements that do not support the report.
 
+Before it starts, the skill runs a compact grill-me-style intake. It asks for the missing essentials once: topic/title, audience, duration or page count, source files, reference style, required content, forbidden content, and final outputs. Optional details use defaults so the workflow can still finish in one pass.
+
 ## Why This Skill Exists
 
 Most AI PPT workflows stop too early:
@@ -228,8 +230,8 @@ When a user says the final pages include meaningless marks or strange symbols, t
 
 The skill follows these stages:
 
-1. **Collect inputs**  
-   Topic, audience, duration, slide count, reference PPT, source files, and must-use keywords.
+1. **Run grill-me style intake**
+   Ask the missing essential requirements before work, then summarize assumptions and proceed.
 
 2. **Extract and normalize sources**  
    Chinese `.docx`, `.txt`, `.csv`, and government-style documents are normalized before analysis. The skill warns against Windows PowerShell path-encoding pitfalls.
@@ -283,6 +285,7 @@ ppt-image-share-builder/
       contact-sheet-demo.jpg
       10-minute-script.md
   references/
+    intake-grillme.md
     workflow-checklist.md
     iteration-playbook.md
     prompt-patterns.md
@@ -298,7 +301,7 @@ ppt-image-share-builder/
 
 - **Source-backed first**: facts, laws, dates, statistics, and cases should be tied to source notes.
 - **Reference-style aware**: generated slides should match the user's existing PPT language.
-- **Human-in-the-loop**: generate a few slides first, confirm the style, then continue.
+- **Intake before work**: clarify missing essentials once, then deliver a complete first version by default.
 - **Chinese text aware**: keep generated Chinese text short enough to inspect and fix.
 - **Private by default**: do not publish user textbooks, generated course files, personal names, or classroom materials unless the user explicitly asks.
 

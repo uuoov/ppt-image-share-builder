@@ -24,6 +24,8 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 
 - Treat generated PPT page images as the visual source of truth. The PPTX is only a delivery wrapper.
 - Optimize for a non-expert user. Do not require the user to know prompt engineering terms; translate vague feedback into concrete content, style, and cleanup actions.
+- Before writing prompts or generating images, run grill-me style intake. If a real grill-me skill/tool is available, use it; otherwise use `references/intake-grillme.md`.
+- Do not begin deck planning or image generation until essential requirements are answered or explicit assumptions are recorded.
 - Extract and verify source facts before writing prompts. Use official or primary sources for recent rules, cases, data, or dates.
 - Match the user's reference PPT style: layout rhythm, title system, color palette, page markers, diagram grammar, and information density.
 - Default to one-pass delivery: generate the full useful deck in one run unless the user explicitly asks for staged confirmation or the request is too ambiguous to proceed safely.
@@ -39,9 +41,10 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 
 ## Workflow
 
-1. **Collect inputs**
-   - Topic, exact title, audience, duration, slide count, language, reference PPT, source files, and required keywords.
-   - Convert required keywords into slide-level claims, not just a list.
+1. **Run grill-me style intake**
+   - Ask the compact required checklist before starting work: topic/title, audience, duration or page count, sources, reference style, required content, forbidden content, and requested outputs.
+   - Treat optional details as defaults when they are missing; state assumptions instead of adding avoidable back-and-forth.
+   - Read `references/intake-grillme.md` before starting a new deck or major revision.
 
 2. **Extract sources**
    - For Chinese `.doc`, `.docx`, `.txt`, `.csv`, or government-style documents, use a reliable UTF-8 extraction path.
