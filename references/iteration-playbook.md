@@ -6,7 +6,7 @@ Use this playbook when building or revising a multi-page image2 PPT image set, e
 
 Make the workflow feel simple to the user by delivering a complete first version whenever possible.
 
-Before the workflow starts, run the grill-me style intake in `references/intake-grillme.md`. The intake should collect missing essential requirements once, then the generation work should proceed in one pass by default.
+Before the workflow starts, run the bounded grill-me style intake in `references/intake-grillme.md`. The intake should inspect provided materials, close essential decision branches, collect missing requirements in small batches, then let generation proceed in one pass by default.
 
 The user should not need to understand prompt engineering or approve multiple rounds. Codex should run the quality gates internally:
 

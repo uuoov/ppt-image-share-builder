@@ -24,8 +24,8 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 
 - Treat generated PPT page images as the visual source of truth. The PPTX is only a delivery wrapper.
 - Optimize for a non-expert user. Do not require the user to know prompt engineering terms; translate vague feedback into concrete content, style, and cleanup actions.
-- Before writing prompts or generating images, run grill-me style intake. If a real grill-me skill/tool is available, use it; otherwise use `references/intake-grillme.md`.
-- Do not begin deck planning or image generation until essential requirements are answered or explicit assumptions are recorded.
+- Before writing prompts or generating images, run bounded grill-me style intake. If a real grill-me skill/tool is available, use it; otherwise use `references/intake-grillme.md`.
+- Do not begin deck planning or image generation until essential decision branches are resolved or explicit assumptions are recorded.
 - Extract and verify source facts before writing prompts. Use official or primary sources for recent rules, cases, data, or dates.
 - Match the user's reference PPT style: layout rhythm, title system, color palette, page markers, diagram grammar, and information density.
 - Default to one-pass delivery: generate the full useful deck in one run unless the user explicitly asks for staged confirmation or the request is too ambiguous to proceed safely.
@@ -42,7 +42,9 @@ Keep the workflow source-backed, style-aware, and human-reviewed. Helper scripts
 ## Workflow
 
 1. **Run grill-me style intake**
-   - Ask the compact required checklist before starting work: topic/title, audience, duration or page count, sources, reference style, required content, forbidden content, and requested outputs.
+   - Inspect provided files, paths, and messages first; do not ask questions that can be answered from available material.
+   - Track essential branches as `[OPEN]` or `[RESOLVED]`: topic/title, audience, duration or page count, sources, reference style, required content, forbidden content, and requested outputs.
+   - Ask 1-3 missing questions per batch, with recommended defaults when possible.
    - Treat optional details as defaults when they are missing; state assumptions instead of adding avoidable back-and-forth.
    - Read `references/intake-grillme.md` before starting a new deck or major revision.
 

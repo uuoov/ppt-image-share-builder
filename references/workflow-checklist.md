@@ -4,7 +4,7 @@ Use this checklist for a full course-sharing PPT page image workflow.
 
 ## Intake
 
-Start with the grill-me style intake in `references/intake-grillme.md`. Ask only missing essential items, then proceed with stated assumptions so one-pass delivery stays simple.
+Start with the bounded grill-me style intake in `references/intake-grillme.md`. Inspect available materials first, mark essential branches `[OPEN]` or `[RESOLVED]`, ask only missing essentials in 1-3 question batches, then proceed with stated assumptions so one-pass delivery stays simple.
 
 - Topic and exact title
 - Presenter name/date if needed
